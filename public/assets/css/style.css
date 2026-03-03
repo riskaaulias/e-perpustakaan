@@ -1,0 +1,33 @@
+/* Background utama */
+body {
+    background-color: #f7f3eb !important; /* cream soft */
+}
+
+/* Sidebar */
+.layout-menu {
+    background-color: #efe7da !important; /* cream sedikit lebih gelap */
+}
+
+/* Navbar atas */
+.layout-navbar {
+    background-color: #fdfaf5 !important;
+    border-bottom: 1px solid #e6dccb;
+}
+
+/* Card dashboard */
+.card {
+    background-color: #fffaf3;
+    border: 1px solid #eee2cf;
+    border-radius: 12px;
+}
+
+/* Tombol utama */
+.btn-primary {
+    background-color: #c8a97e;
+    border-color: #c8a97e;
+}
+
+.btn-primary:hover {
+    background-color: #b8966a;
+    border-color: #b8966a;
+}
