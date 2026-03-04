@@ -83,103 +83,76 @@
           <div class="content-wrapper">
 
             <!-- Content -->
-         
-            <div class="container-xxl flex-grow-1 container-p-y">
-              <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Detail/</span>Buku</h4>
+           <div class="container-xxl flex-grow-1 container-p-y">
+              <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Tabel /</span>Petugas</h4>
+                @if (session('message'))
+                <div class="alert alert-{{ session('type') }} alert-dismissible fade show" role="alert">
+                    @if(session('type') == 'success')
+                        <i class="bx bx-check-circle me-1"></i>
+                    @elseif(session('type') == 'warning')
+                        <i class="bx bx-edit-alt me-1"></i>
+                    @else
+                        <i class="bx bx-trash me-1"></i>
+                    @endif
+                    
+                    {{ session('message') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>
+            @endif
+                <a href="{{route('petugas.create')}}" class="btn btn-primary mb-4">
+                    <i class="bx bx-folder-plus" style="position: relative; bottom: 2px;"></i>Tambah data
+                </a>
+         <div class="card">
+                <h5 class="card-header">Tabel Petugas</h5>
+                <div class="table-responsive text-nowrap">
+                  <table class="table">
+                    <thead>
+                      <tr class="text-center">
+                        <th>No</th>
+                        <th>Nama Petugas</th>
+                        <th>Alamat Petugas</th>
+                        <th>Telpon Petugas</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody class="table-border-bottom-0">
+                    @php $no = 1; @endphp
+                    @foreach ($petugas as $data)
+                      <tr class="text-center">
+                        <td>{{$no++}}</td>
+                        <td>{{$data->nama_petugas}}</td>
+                        <td>{{$data->alamat_petugas}}</td>
+                        <td>{{$data->telpon_petugas}}</td>
+                         <td>
+                          <div class="d-flex justify-content-center align-items-center gap-1">
+                              <a href="{{ route('petugas.show', $data->id) }}" class="btn btn-sm btn-info">
+                                  <i class="bx bx-show-alt"></i>
+                              </a>
+                              <a href="{{ route('petugas.edit', $data->id) }}" class="btn btn-sm btn-warning">
+                                  <i class="bx bx-edit-alt"></i>
+                              </a>
+                              <form action="{{ route('petugas.destroy', $data->id) }}" method="POST" class="d-inline">
+                                  @csrf
+                                  @method('DELETE')
+                                  <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Yakin mau hapus data ini?')">
+                                      <i class="bx bx-trash"></i>
+                                  </button>
+                              </form>
+                          </div>
+                      </td>
+                            </form>
 
-              <!-- Basic Layout & Basic with Icons -->
-              <div class="row">
-            
-                <!-- Basic with Icons -->
-                <div class="col-xxl">
-                  <div class="card mb-4">
-                    <div class="card-body">
-                      @csrf
-                        <div class="row mb-3">
-                          <label class="col-sm-2 col-form-label" for="basic-icon-default-fullname">Kode Buku</label>
-                          <div class="col-sm-10">
-                            <div class="input-group input-group-merge">
-                              <input type="text" class="form-control"  name="kode_buku" value="{{$buku->kode_buku}}" disabled/>
                             </div>
                           </div>
-                        </div>
-                      <div class="row mb-3">
-                        <label class="col-sm-2 col-form-label" for="basic-icon-default-fullname">Judul Buku</label>
-                        <div class="col-sm-10">
-                            <div class="input-group input-group-merge">
-                            <input type="text" class="form-control" name="judul_buku" value="{{$buku->judul_buku}}" disabled/>
-                            </div>
-                        </div>
-                        </div>
-                          <div class="row mb-3">
-                          <label class="col-sm-2 col-form-label" for="basic-icon-default-fullname">Pengarang</label>
-                          <div class="col-sm-10">
-                            <div class="input-group input-group-merge">
-                              <input type="text" class="form-control"  name="pengarang" value="{{$buku->pengarang}}" disabled/>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row mb-3">
-                          <label class="col-sm-2 col-form-label" for="basic-icon-default-fullname">Penerbit</label>
-                          <div class="col-sm-10">
-                            <div class="input-group input-group-merge">
-                              <input type="text" class="form-control"  name="penerbit" value="{{$buku->penerbit}}" disabled/>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row mb-3">
-                          <label class="col-sm-2 col-form-label" for="basic-icon-default-fullname">Tahun</label>
-                          <div class="col-sm-10">
-                            <div class="input-group input-group-merge">
-                              <input type="text" class="form-control"  name="tahun" value="{{$buku->tahun}}" disabled/>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row mb-3">
-                          <label class="col-sm-2 col-form-label" for="basic-icon-default-fullname">Stok</label>
-                          <div class="col-sm-10">
-                            <div class="input-group input-group-merge">
-                              <input type="text" class="form-control"  name="stok" value="{{$buku->stok}}" disabled/>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row mb-3">
-                          <label class="col-sm-2 col-form-label" for="basic-icon-default-fullname">Kategori</label>
-                          <div class="col-sm-10">
-                            <div class="input-group input-group-merge">
-                              <input type="text" class="form-control"  name="kategori" value="{{$buku->kategori}}" disabled/>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row mb-3">
-                          <label class="col-sm-2 col-form-label" for="basic-icon-default-fullname">Lokasi Rak</label>
-                          <div class="col-sm-10">
-                            <div class="input-group input-group-merge">
-                              <input type="text" class="form-control"  name="lokasi_rak" value="{{$buku->lokasi_rak}}" disabled/>
-                            </div>
-                          </div>
-                        </div>
-                          {{-- <div class="row mb-3">
-                          <label class="col-sm-2 col-form-label" for="basic-icon-default-fullname">Nama E-Wallet</label>
-                          <div class="col-sm-10">
-                            <div class="input-group input-group-merge">
-                              <input type="text" class="form-control"  name="id_saldo" value="{{$buku->saldo->nama_e_wallet}}" disabled/>
-                            </div>
-                          </div>
-                        </div> --}}
-                        <div class="row justify-content-end">
-                          <div class="col-sm-10">
-                        <a href="{{ route('buku.index') }}" class="btn btn-primary">
-                            Kembali
-                        </a>
-                          </div>
-                        </div>
-                      </form>
-                    </div>
-                  </div>
+                        </td>
+                      </tr>
+                    @endforeach
+
+                    </tbody>
+                  </table>
                 </div>
               </div>
-            </div>
+              </div>
             <!-- / Content -->
 
             <!-- Footer -->

@@ -75,11 +75,16 @@
                 <div data-i18n="Analytics">Dashboard</div>
               </a>
             </li>
-            
             <li class="menu-item">
               <a href="{{route('buku.index')}}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-table"></i>
                 <div data-i18n="Tables">Buku</div>
+              </a>
+            </li>
+             <li class="menu-item">
+              <a href="{{route('petugas.index')}}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-table"></i>
+                <div data-i18n="Tables">Petugas</div>
               </a>
             </li>
           </ul>

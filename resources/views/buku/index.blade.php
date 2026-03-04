@@ -85,13 +85,21 @@
             <!-- Content -->
            <div class="container-xxl flex-grow-1 container-p-y">
               <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Tabel /</span>Buku</h4>
-                 @if (session('success'))
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    {{ session('success') }}
+                @if (session('message'))
+                <div class="alert alert-{{ session('type') }} alert-dismissible fade show" role="alert">
+                    @if(session('type') == 'success')
+                        <i class="bx bx-check-circle me-1"></i>
+                    @elseif(session('type') == 'warning')
+                        <i class="bx bx-edit-alt me-1"></i>
+                    @else
+                        <i class="bx bx-trash me-1"></i>
+                    @endif
+                    
+                    {{ session('message') }}
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
-                @endif
-                <a href="{{route('buku.create')}}" class="btn btn-primary">
+            @endif
+                <a href="{{route('buku.create')}}" class="btn btn-primary mb-4">
                     <i class="bx bx-folder-plus" style="position: relative; bottom: 2px;"></i>Tambah data
                 </a>
          <div class="card">
@@ -99,7 +107,7 @@
                 <div class="table-responsive text-nowrap">
                   <table class="table">
                     <thead>
-                      <tr>
+                      <tr class="text-center">
                         <th>No</th>
                         <th>Kode Buku</th>
                         <th>Judul Buku</th>
@@ -107,15 +115,15 @@
                         <th>Penerbit</th>
                         <th>Tahun</th>
                         <th>Stok</th>
-                        <th>Dipinjam</th>
-                        <th>Tersedia</th>
+                        <th>Kategori</th>
+                        <th>Lokasi Rak</th>
                         <th>Actions</th>
                       </tr>
                     </thead>
                     <tbody class="table-border-bottom-0">
                     @php $no = 1; @endphp
                     @foreach ($buku as $data)
-                      <tr>
+                      <tr class="text-center">
                         <td>{{$no++}}</td>
                         <td>{{$data->kode_buku}}</td>
                         <td>{{$data->judul_buku}}</td>
@@ -123,24 +131,29 @@
                         <td>{{$data->penerbit}}</td>
                         <td>{{$data->tahun}}</td>
                         <td>{{$data->stok}}</td>
-                        <td>{{$data->dipinjam}}</td>
-                        <td>{{$data->tersedia}}</td>
-                        <td>
-                          <div class="dropdown">
-                            <button type="button" class="btn p-0 dropdown-toggle hide-arrow" data-bs-toggle="dropdown">
-                              <i class="bx bx-dots-vertical-rounded"></i>
-                            </button>
-                            <div class="dropdown-menu">
-                              <a href="{{ route('buku.edit', $data->id) }}" class="dropdown-item" href="javascript:void(0);">
-                                <i class="bx bx-edit-alt me-1"></i> Edit</a>
-                              <a href="{{ route('buku.show', $data->id) }}" class="dropdown-item" href="javascript:void(0);">
-                                <i class="bx bx-search-alt"></i>Detail</a>
-                            <form action="{{ route('buku.destroy', $data->id) }}" method="POST" onsubmit="return confirm('Apakah Anda yakin?')">
-                              @csrf
-                              @method('DELETE')
-                              <button type="submit" class="dropdown-item">
-                                  <i class="bx bx-trash me-1"></i> Hapus
-                              </button>
+                        <td>{{$data->kategori}}</td>
+                        <td>{{$data->lokasi_rak}}</td>
+                        
+
+                         <td>
+                          <div class="d-flex align-items-center gap-1">
+                              <a href="{{ route('buku.show', $data->id) }}" class="btn btn-sm btn-info">
+                                  <i class="bx bx-show-alt"></i>
+                              </a>
+
+                              <a href="{{ route('buku.edit', $data->id) }}" class="btn btn-sm btn-warning">
+                                  <i class="bx bx-edit-alt"></i>
+                              </a>
+
+                              <form action="{{ route('buku.destroy', $data->id) }}" method="POST" class="d-inline">
+                                  @csrf
+                                  @method('DELETE')
+                                  <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Yakin mau hapus data ini?')">
+                                      <i class="bx bx-trash"></i>
+                                  </button>
+                              </form>
+                          </div>
+                      </td>
                             </form>
 
                             </div>

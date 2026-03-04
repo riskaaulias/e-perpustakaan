@@ -36,8 +36,8 @@ class BukuController extends Controller
             'penerbit' => 'required|string|max:255',
             'tahun' => 'required|string|max:255',
             'stok' => 'required|string|max:255',
-            'dipinjam' => 'required|string|max:255',
-            'tersedia' => 'required|string|max:255',
+            'kategori' => 'required|string|max:255',
+            'lokasi_rak' => 'required|string|max:255',
 
         ], [
             'kode_buku.required' => 'Kode buku tidak boleh kosong!',
@@ -46,8 +46,8 @@ class BukuController extends Controller
             'penerbit.required' => 'Penerbit tidak boleh kosong!',
             'tahun.required' => 'Tahun tidak boleh kosong!',
             'stok.required' => 'Stok tidak boleh kosong!',
-            'dipinjam.required' => 'Jumlah pinjam tidak boleh kosong!',
-            'tersedia.required' => 'Jumlah tersedia tidak boleh kosong!',
+            'kategori.required' => 'Kategori tidak boleh kosong!',
+            'lokasi_rak.required' => 'Lokasi Rak tidak boleh kosong!',
 
         ]);
 
@@ -58,12 +58,15 @@ class BukuController extends Controller
         $buku->penerbit             =$request->input('penerbit');
         $buku->tahun             =$request->input('tahun');
         $buku->stok             =$request->input('stok');
-        $buku->dipinjam             =$request->input('dipinjam');
-        $buku->tersedia             =$request->input('tersedia');
+        $buku->kategori             =$request->input('kategori');
+        $buku->lokasi_rak             =$request->input('lokasi_rak');
         $buku->save();
 
         session()->flash('success', 'Data Berhasil Ditambahkan');
-        return redirect()->route('buku.index');
+        return redirect()->route('buku.index')->with([
+        'message' => 'Data Berhasil Ditambahkan',
+        'type' => 'success'
+    ]);
     }
 
     /**
@@ -71,7 +74,8 @@ class BukuController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $buku = Buku::findOrFail($id);
+        return view('buku.show', compact('buku'));
     }
 
     /**
@@ -95,8 +99,8 @@ class BukuController extends Controller
             'penerbit' => 'required|string|max:255',
             'tahun' => 'required|string|max:255',
             'stok' => 'required|string|max:255',
-            'dipinjam' => 'required|string|max:255',
-            'tersedia' => 'required|string|max:255',
+            'kategori' => 'required|string|max:255',
+            'lokasi_rak' => 'required|string|max:255',
 
         ], [
             'kode_buku.required' => 'Kode buku tidak boleh kosong!',
@@ -105,8 +109,8 @@ class BukuController extends Controller
             'penerbit.required' => 'Penerbit tidak boleh kosong!',
             'tahun.required' => 'Tahun tidak boleh kosong!',
             'stok.required' => 'Stok tidak boleh kosong!',
-            'dipinjam.required' => 'Jumlah pinjam tidak boleh kosong!',
-            'tersedia.required' => 'Jumlah tersedia tidak boleh kosong!',
+            'kategori.required' => 'Kategori tidak boleh kosong!',
+            'lokasi_rak.required' => 'Lokasi Rak tidak boleh kosong!',
 
         ]);
 
@@ -117,12 +121,15 @@ class BukuController extends Controller
         $buku->penerbit             =$request->input('penerbit');
         $buku->tahun             =$request->input('tahun');
         $buku->stok             =$request->input('stok');
-        $buku->dipinjam             =$request->input('dipinjam');
-        $buku->tersedia             =$request->input('tersedia');
+        $buku->kategori             =$request->input('kategori');
+        $buku->lokasi_rak             =$request->input('lokasi_rak');
         $buku->save();
 
         session()->flash('success', 'Data Berhasil Dirubah');
-        return redirect()->route('buku.index');
+        return redirect()->route('buku.index')->with([
+        'message' => 'Data Berhasil Dirubah',
+        'type' => 'warning'
+    ]);
     }
 
     /**
@@ -130,6 +137,11 @@ class BukuController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $buku = Buku::findOrFail($id);
+        $buku->delete();
+        return redirect()->route('buku.index')->with([
+        'message' => 'Data Berhasil Dihapus',
+        'type' => 'danger'
+        ]);
     }
 }

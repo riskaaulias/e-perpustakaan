@@ -19,8 +19,8 @@ return new class extends Migration
             $table->string('penerbit');
             $table->integer('tahun');
             $table->integer('stok');
-            $table->string('dipinjam');
-            $table->string('tersedia');
+            $table->string('kategori');
+            $table->string('lokasi_rak');
             $table->timestamps();
         });
     }

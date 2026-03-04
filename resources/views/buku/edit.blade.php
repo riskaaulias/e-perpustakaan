@@ -114,24 +114,24 @@
                         </div>
 
                         <div class="row mb-3">
-                          <label class="col-sm-2 col-form-label">Dipinjam</label>
+                          <label class="col-sm-2 col-form-label">Kategori</label>
                           <div class="col-sm-10">
                             <div class="input-group input-group-merge">
                               <span class="input-group-text"><i class="bx bx-export"></i></span>
-                              <input type="text" class="form-control" value="{{$buku->dipinjam}}" name="dipinjam"/>
+                              <input type="text" class="form-control" value="{{$buku->kategori}}" name="kategori"/>
                             </div>
-                            @error('dipinjam') <small style="color:red">{{ $message }}</small> @enderror
+                            @error('kategori') <small style="color:red">{{ $message }}</small> @enderror
                           </div>
                         </div>
 
                         <div class="row mb-3">
-                          <label class="col-sm-2 col-form-label">Tersedia</label>
+                          <label class="col-sm-2 col-form-label">Lokasi Rak</label>
                           <div class="col-sm-10">
                             <div class="input-group input-group-merge">
                               <span class="input-group-text"><i class="bx bx-check-circle"></i></span>
-                              <input type="text" class="form-control" value="{{$buku->tersedia}}" name="tersedia"/>
+                              <input type="text" class="form-control" value="{{$buku->lokasi_rak}}" name="lokasi_rak"/>
                             </div>
-                            @error('tersedia') <small style="color:red">{{ $message }}</small> @enderror
+                            @error('lokasi_rak') <small style="color:red">{{ $message }}</small> @enderror
                           </div>
                         </div>
 

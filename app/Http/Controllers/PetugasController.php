@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Petugas;
 use Illuminate\Http\Request;
 
 class PetugasController extends Controller
@@ -11,7 +12,8 @@ class PetugasController extends Controller
      */
     public function index()
     {
-        //
+        $petugas = Petugas::all();
+        return view('petugas.index', compact('petugas')); 
     }
 
     /**
@@ -19,7 +21,7 @@ class PetugasController extends Controller
      */
     public function create()
     {
-        //
+        return view('petugas.create');
     }
 
     /**
@@ -27,7 +29,27 @@ class PetugasController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nama_petugas' => 'required|string|max:255',
+            'alamat_petugas' => 'required|string|max:255',
+            'telpon_petugas' => 'required|string|max:255',
+        ], [
+            'nama_petugas.required' => 'Nama petugas tidak boleh kosong!',
+            'alamat_petugas.required' => 'Alamat petugas tidak boleh kosong!',
+            'telpon_petugas.required' => 'Telpon petugas tidak boleh kosong!',
+        ]);
+
+        $petugas = new Petugas;
+        $petugas->nama_petugas       =$request->input('nama_petugas');
+        $petugas->alamat_petugas             =$request->input('alamat_petugas');
+        $petugas->telpon_petugas             =$request->input('telpon_petugas');
+        $petugas->save();
+
+        session()->flash('success', 'Data Berhasil Ditambahkan');
+        return redirect()->route('petugas.index')->with([
+        'message' => 'Data Berhasil Ditambahkan',
+        'type' => 'success'
+        ]);
     }
 
     /**
