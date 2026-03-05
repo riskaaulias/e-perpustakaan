@@ -17,7 +17,7 @@
   class="light-style layout-menu-fixed"
   dir="ltr"
   data-theme="theme-default"
-data-assets-path="{{ asset('assets/') }}/"
+  data-assets-path="../assets/"
   data-template="vertical-menu-template-free"
 >
   <head>
@@ -81,43 +81,74 @@ data-assets-path="{{ asset('assets/') }}/"
 
           <!-- Content wrapper -->
           <div class="content-wrapper">
+
             <!-- Content -->
-
-            <div class="container-xxl flex-grow-1 container-p-y">
-              <div class="row">
-                <div class="col-lg-12 mb-4 order-0">
-                  <div class="card">
-                    <div class="d-flex align-items-end row">
-                      <div class="col-sm-7">
-                        <div class="card-body">
-                          <h5 class="card-title text-primary">Selamat Datang Di Perpustakaan Kami ! 🎉</h5>
-                          <p class="mb-4">
-                            You have done <span class="fw-bold">72%</span> more sales today. Check your new badge in
-                            your profile.
-                          </p>
-
-                          <a href="javascript:;" class="btn btn-sm btn-outline-primary">View Badges</a>
-                        </div>
-                      </div>
-                      <div class="col-sm-5 text-center text-sm-left">
-                        <div class="card-body pb-0 px-0 px-md-4">
-                          <img src="{{ asset('assets/img/illustrations/man-with-laptop-light.png') }}"
-                            height="140"
-                            alt="View Badge User"
-                            data-app-dark-img="illustrations/man-with-laptop-dark.png"
-                            data-app-light-img="illustrations/man-with-laptop-light.png"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+           <div class="container-xxl flex-grow-1 container-p-y">
+              <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Tabel /</span>Peminjaman</h4>
+                @if (session('message'))
+                <div class="alert alert-{{ session('type') }} alert-dismissible fade show" role="alert">
+                    @if(session('type') == 'success')
+                        <i class="bx bx-check-circle me-1"></i>
+                    @elseif(session('type') == 'warning')
+                        <i class="bx bx-edit-alt me-1"></i>
+                    @else
+                        <i class="bx bx-trash me-1"></i>
+                    @endif
+                    
+                    {{ session('message') }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
-              
+            @endif
+                <a href="{{route('peminjaman.create')}}" class="btn btn-primary mb-4">
+                    <i class="bx bx-folder-plus" style="position: relative; bottom: 2px;"></i>Tambah data
+                </a>
+         <div class="card">
+                <h5 class="card-header">Tabel Peminjaman</h5>
+                <div class="table-responsive text-nowrap">
+                  <table class="table">
+                    <thead>
+                      <tr class="text-center">
+                        <th>No</th>
+                        <th>Nama</th>
+                        <th>Nama Petugas</th>
+                        <th>Tanggal Pinjam</th>
+                        <th>Total Pinjam</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody class="table-border-bottom-0">
+                    @php $no = 1; @endphp
+                   @foreach ($peminjaman as $data)
+                    <tr class="text-center">
+                      <td>{{ $no++ }}</td>
+                      <td>{{ $data->anggota?->nama_anggota}}</td>
+                      <td>{{ $data->petugas?->nama_petugas}}</td>
+                      <td>{{ $data->tgl_pinjam }}</td>
+                      <td>{{ $data->total_pinjam }}</td>
+                      <td>
+                        <div class="d-flex justify-content-center align-items-center gap-1">
+                            <a href="{{ route('peminjaman.show', $data->id) }}" class="btn btn-sm btn-info">
+                                <i class="bx bx-show-alt"></i>
+                            </a>
+                            <a href="{{ route('peminjaman.edit', $data->id) }}" class="btn btn-sm btn-warning">
+                                <i class="bx bx-edit-alt"></i>
+                            </a>
+                            <form action="{{ route('peminjaman.destroy', $data->id) }}" method="POST" class="d-inline">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Yakin mau hapus data ini?')">
+                                    <i class="bx bx-trash"></i>
+                                </button>
+                            </form>
                         </div>
-                      </div>
-                    </div>
-                  </div>
+                      </td>
+                    </tr>
+                  @endforeach
+
+                    </tbody>
+                  </table>
                 </div>
+              </div>
               </div>
             <!-- / Content -->
 

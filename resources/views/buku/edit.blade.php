@@ -117,7 +117,7 @@
                           <label class="col-sm-2 col-form-label">Kategori</label>
                           <div class="col-sm-10">
                             <div class="input-group input-group-merge">
-                              <span class="input-group-text"><i class="bx bx-export"></i></span>
+                              <span class="input-group-text"><i class="bx bx-category"></i></span>
                               <input type="text" class="form-control" value="{{$buku->kategori}}" name="kategori"/>
                             </div>
                             @error('kategori') <small style="color:red">{{ $message }}</small> @enderror
@@ -128,7 +128,7 @@
                           <label class="col-sm-2 col-form-label">Lokasi Rak</label>
                           <div class="col-sm-10">
                             <div class="input-group input-group-merge">
-                              <span class="input-group-text"><i class="bx bx-check-circle"></i></span>
+                              <span class="input-group-text"><i class="bx bx-buildings"></i></span>
                               <input type="text" class="form-control" value="{{$buku->lokasi_rak}}" name="lokasi_rak"/>
                             </div>
                             @error('lokasi_rak') <small style="color:red">{{ $message }}</small> @enderror

@@ -75,7 +75,7 @@
             <div class="card-body">
               <!-- Logo -->
               <div class="app-brand justify-content-center">
-                <a href="index.html" class="app-brand-link gap-2">
+               <a href="{{ route('home') }}" class="app-brand-link gap-2">
                   <span class="app-brand-logo demo">
                     <svg
                       width="25"
@@ -131,60 +131,76 @@
                       </g>
                     </svg>
                   </span>
-                  <span class="app-brand-text demo text-body fw-bolder">Sneat</span>
+                  <span class="app-brand-text demo text-body fw-bolder">e-perpustakaan</span>
                 </a>
               </div>
               <!-- /Logo -->
-              <h4 class="mb-2">Adventure starts here 🚀</h4>
-              <p class="mb-4">Make your app management easy and fun!</p>
+              <h4 class="mb-2">Petualangan dimulai di sini 🚀</h4>
+              <p class="mb-4">Jadikan pengelolaan aplikasi Anda mudah dan menyenangkan!</p>
 
-              <form id="formAuthentication" class="mb-3" action="index.html" method="POST">
-                <div class="mb-3">
-                  <label for="username" class="form-label">Username</label>
-                  <input
-                    type="text"
-                    class="form-control"
-                    id="username"
-                    name="username"
-                    placeholder="Enter your username"
-                    autofocus
-                  />
-                </div>
-                <div class="mb-3">
-                  <label for="email" class="form-label">Email</label>
-                  <input type="text" class="form-control" id="email" name="email" placeholder="Enter your email" />
-                </div>
-                <div class="mb-3 form-password-toggle">
-                  <label class="form-label" for="password">Password</label>
-                  <div class="input-group input-group-merge">
-                    <input
-                      type="password"
-                      id="password"
-                      class="form-control"
-                      name="password"
-                      placeholder="&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;&#xb7;"
-                      aria-describedby="password"
-                    />
-                    <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
-                  </div>
-                </div>
+             <form id="formAuthentication" class="mb-3" action="{{ route('register') }}" method="POST">
+    @csrf <div class="mb-3">
+        <label for="username" class="form-label">Username</label>
+        <input
+            type="text"
+            class="form-control"
+            id="username"
+            name="name" 
+            placeholder="Masukkan username"
+            value="{{ old('name') }}"
+            autofocus
+        />
+        @error('name')
+            <small class="text-danger">{{ $message }}</small>
+        @enderror
+    </div>
 
-                <div class="mb-3">
-                  <div class="form-check">
-                    <input class="form-check-input" type="checkbox" id="terms-conditions" name="terms" />
-                    <label class="form-check-label" for="terms-conditions">
-                      I agree to
-                      <a href="javascript:void(0);">privacy policy & terms</a>
-                    </label>
-                  </div>
-                </div>
-                <button class="btn btn-primary d-grid w-100">Sign up</button>
-              </form>
+    <div class="mb-3">
+        <label for="email" class="form-label">Email</label>
+        <input type="text" class="form-control" id="email" name="email" placeholder="Masukkan email" value="{{ old('email') }}" />
+        @error('email')
+            <small class="text-danger">{{ $message }}</small>
+        @enderror
+    </div>
+
+    <div class="mb-3 form-password-toggle">
+        <label class="form-label" for="password">Kata Sandi</label>
+        <div class="input-group input-group-merge">
+            <input
+                type="password"
+                id="password"
+                class="form-control"
+                name="password"
+                placeholder="············"
+            />
+            <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
+        </div>
+        @error('password')
+            <small class="text-danger">{{ $message }}</small>
+        @enderror
+    </div>
+
+    <div class="mb-3 form-password-toggle">
+        <label class="form-label" for="password_confirmation">Konfirmasi Kata Sandi</label>
+        <div class="input-group input-group-merge">
+            <input
+                type="password"
+                id="password_confirmation"
+                class="form-control"
+                name="password_confirmation"
+                placeholder="············"
+            />
+            <span class="input-group-text cursor-pointer"><i class="bx bx-hide"></i></span>
+        </div>
+    </div>
+
+    <button class="btn btn-primary d-grid w-100" type="submit">Daftar</button>
+</form>
 
               <p class="text-center">
-                <span>Already have an account?</span>
+                <span>Sudah punya akun?</span>
                 <a href="auth-login-basic.html">
-                  <span>Sign in instead</span>
+                  <span>Silahkan masuk</span>
                 </a>
               </p>
             </div>

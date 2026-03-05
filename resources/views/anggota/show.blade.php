@@ -17,7 +17,7 @@
   class="light-style layout-menu-fixed"
   dir="ltr"
   data-theme="theme-default"
-data-assets-path="{{ asset('assets/') }}/"
+  data-assets-path="../assets/"
   data-template="vertical-menu-template-free"
 >
   <head>
@@ -81,44 +81,81 @@ data-assets-path="{{ asset('assets/') }}/"
 
           <!-- Content wrapper -->
           <div class="content-wrapper">
+
             <!-- Content -->
-
+         
             <div class="container-xxl flex-grow-1 container-p-y">
-              <div class="row">
-                <div class="col-lg-12 mb-4 order-0">
-                  <div class="card">
-                    <div class="d-flex align-items-end row">
-                      <div class="col-sm-7">
-                        <div class="card-body">
-                          <h5 class="card-title text-primary">Selamat Datang Di Perpustakaan Kami ! 🎉</h5>
-                          <p class="mb-4">
-                            You have done <span class="fw-bold">72%</span> more sales today. Check your new badge in
-                            your profile.
-                          </p>
+              <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Detail/</span>Anggota</h4>
 
-                          <a href="javascript:;" class="btn btn-sm btn-outline-primary">View Badges</a>
+              <!-- Basic Layout & Basic with Icons -->
+              <div class="row">
+            
+                <!-- Basic with Icons -->
+                <div class="col-xxl">
+                  <div class="card mb-4">
+                    <div class="card-body">
+                      @csrf
+                        <div class="row mb-3">
+                          <label class="col-sm-2 col-form-label" for="basic-icon-default-fullname">Nama Anggota</label>
+                          <div class="col-sm-10">
+                            <div class="input-group input-group-merge">
+                              <input type="text" class="form-control"  name="nama_anggota" value="{{$anggota->nama_anggota}}" disabled/>
+                            </div>
+                          </div>
                         </div>
-                      </div>
-                      <div class="col-sm-5 text-center text-sm-left">
-                        <div class="card-body pb-0 px-0 px-md-4">
-                          <img src="{{ asset('assets/img/illustrations/man-with-laptop-light.png') }}"
-                            height="140"
-                            alt="View Badge User"
-                            data-app-dark-img="illustrations/man-with-laptop-dark.png"
-                            data-app-light-img="illustrations/man-with-laptop-light.png"
-                          />
+                    <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label">Alamat</label>
+                        <div class="col-sm-10">
+                            <div class="input-group input-group-merge">
+                        <textarea class="form-control" name="alamat" cols="100" rows="5"  disabled>{{$anggota->alamat}}</textarea>
                         </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              
+                         </div>
+                            </div>
+                          <div class="row mb-3">
+                          <label class="col-sm-2 col-form-label" for="basic-icon-default-fullname">Telpon</label>
+                          <div class="col-sm-10">
+                            <div class="input-group input-group-merge">
+                              <input type="text" class="form-control"  name="telpon" value="{{$anggota->telpon}}" disabled/>
+                            </div>
+                          </div>
                         </div>
-                      </div>
+                        <div class="row mb-3">
+                          <label class="col-sm-2 col-form-label" for="basic-icon-default-fullname">NIM</label>
+                          <div class="col-sm-10">
+                            <div class="input-group input-group-merge">
+                              <input type="text" class="form-control"  name="NIM" value="{{$anggota->NIM}}" disabled/>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row mb-3">
+                          <label class="col-sm-2 col-form-label" for="basic-icon-default-fullname">Maksimal Pinjam</label>
+                          <div class="col-sm-10">
+                            <div class="input-group input-group-merge">
+                              <input type="text" class="form-control"  name="maks_pinjam" value="{{$anggota->maks_pinjam}}" disabled/>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row mb-3">
+                          <label class="col-sm-2 col-form-label" for="basic-icon-default-fullname">Status</label>
+                          <div class="col-sm-10">
+                            <div class="input-group input-group-merge">
+                              <input type="text" class="form-control"  name="status" value="{{$anggota->status}}" disabled/>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row justify-content-end">
+                          <div class="col-sm-10">
+                        <a href="{{ route('anggota.index') }}" class="btn btn-primary">
+                            Kembali
+                        </a>
+                          </div>
+                        </div>
+                      </form>
                     </div>
                   </div>
                 </div>
               </div>
+            </div>
             <!-- / Content -->
 
             <!-- Footer -->

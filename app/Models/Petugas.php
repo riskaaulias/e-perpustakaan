@@ -11,4 +11,9 @@ class Petugas extends Model
 
     protected $fillable = ['id', 'nama_petugas', 'alamat_petugas', 'telpon_petugas'];
     public $timestamp   = true;
+
+    public function peminjaman()
+    {
+        return $this->hasMany(Peminjaman::class);
+    }
 }

@@ -57,7 +57,8 @@ class PetugasController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $petugas = Petugas::findOrFail($id);
+        return view('petugas.show', compact('petugas'));
     }
 
     /**
@@ -65,7 +66,8 @@ class PetugasController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $petugas = Petugas::findOrFail($id);
+        return view('petugas.edit', compact('petugas'));
     }
 
     /**
@@ -73,7 +75,27 @@ class PetugasController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $request->validate([
+            'nama_petugas' => 'required|string|max:255',
+            'alamat_petugas' => 'required|string|max:255',
+            'telpon_petugas' => 'required|string|max:255',
+        ], [
+            'nama_petugas.required' => 'Nama petugas tidak boleh kosong!',
+            'alamat_petugas.required' => 'Alamat petugas tidak boleh kosong!',
+            'telpon_petugas.required' => 'Telpon petugas tidak boleh kosong!',
+        ]);
+
+        $petugas = Petugas::findOrFail($id);
+        $petugas->nama_petugas       =$request->input('nama_petugas');
+        $petugas->alamat_petugas             =$request->input('alamat_petugas');
+        $petugas->telpon_petugas             =$request->input('telpon_petugas');
+        $petugas->save();
+
+        session()->flash('success', 'Data Berhasil Dirubah');
+        return redirect()->route('petugas.index')->with([
+        'message' => 'Data Berhasil Dirubah',
+        'type' => 'warning'
+        ]);
     }
 
     /**
@@ -81,6 +103,11 @@ class PetugasController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $petugas = Petugas::findOrFail($id);
+        $petugas->delete();
+        return redirect()->route('petugas.index')->with([
+        'message' => 'Data Berhasil Dihapus',
+        'type' => 'danger'
+        ]);
     }
 }

@@ -57,7 +57,7 @@
                   </g>
                 </svg>
               </span>
-              <span class="app-brand-text demo menu-text fw-bolder ms-2">Sneat</span>
+              <span class="app-brand-text demo menu-text fw-bolder ms-2">e-perpus</span>
             </a>
 
             <a href="javascript:void(0);" class="layout-menu-toggle menu-link text-large ms-auto d-block d-xl-none">
@@ -77,14 +77,26 @@
             </li>
             <li class="menu-item">
               <a href="{{route('buku.index')}}" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-table"></i>
+                <i class="menu-icon tf-icons bx bx-library"></i>
                 <div data-i18n="Tables">Buku</div>
               </a>
             </li>
              <li class="menu-item">
               <a href="{{route('petugas.index')}}" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-table"></i>
+                <i class="menu-icon tf-icons bx bx-id-card"></i>
                 <div data-i18n="Tables">Petugas</div>
+              </a>
+            </li>
+             <li class="menu-item">
+              <a href="{{route('anggota.index')}}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-group"></i>
+                <div data-i18n="Tables">Anggota</div>
+              </a>
+            </li>
+             <li class="menu-item">
+              <a href="{{route('peminjaman.index')}}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-export"></i>
+                <div data-i18n="Tables">Peminjaman</div>
               </a>
             </li>
           </ul>

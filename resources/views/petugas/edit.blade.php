@@ -35,34 +35,34 @@
 
           <div class="content-wrapper">
             <div class="container-xxl flex-grow-1 container-p-y">
-              <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Tambah/</span>Petugas</h4>
+              <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Edit/</span>Petugas</h4>
 
               <div class="row">
                 <div class="col-xxl">
                   <div class="card mb-4">
                     <div class="card-header d-flex align-items-center justify-content-between">
-                      <h5 class="mb-0">Tambah Data Petugas</h5>
+                      <h5 class="mb-0">Edit Data Petugas</h5>
                     </div>
                     <div class="card-body">
-                      <form action="{{route ('petugas.store')}}" method="POST" enctype="multipart/form-data">
+                      <form action="{{route ('petugas.update',  $petugas->id)}}" method="POST" enctype="multipart/form-data">
                         @csrf
-                        
+                        @method('PUT')
                         <div class="row mb-3">
                           <label class="col-sm-2 col-form-label">Nama Petugas</label>
                           <div class="col-sm-10">
                             <div class="input-group input-group-merge">
                               <span class="input-group-text"><i class="bx bx-id-card"></i></span>
-                              <input type="text" class="form-control" placeholder="Nama Petugas " name="nama_petugas"/>
+                              <input type="text" class="form-control"  value="{{$petugas->nama_petugas}}" name="nama_petugas"/>
                             </div>
                             @error('nama_petugas') <small style="color:red">{{ $message }}</small> @enderror
                           </div>
                         </div>
 
-                      <div class="row mb-3">
+                         <div class="row mb-3">
                         <label class="col-sm-2 col-form-label">Alamat Petugas</label>
                         <div class="col-sm-10">
                             <div class="input-group input-group-merge">
-                        <textarea class="form-control" name="alamat_petugas" placeholder="Alamat Petugas" cols="100" rows="5"></textarea>
+                        <textarea class="form-control" name="alamat_petugas" cols="100" rows="5">{{$petugas->alamat_petugas}}</textarea>
                         </div>
                          @error('alamat_petugas')
                         <small style="color:red;">{{ $message }}</small><br>
@@ -75,7 +75,7 @@
                           <div class="col-sm-10">
                             <div class="input-group input-group-merge">
                               <span class="input-group-text"><i class="bx bx-phone-call"></i></span>
-                              <input type="text" class="form-control" placeholder="Telpon Petugas" name="telpon_petugas"/>
+                              <input type="text" class="form-control" value="{{$petugas->telpon_petugas}}" name="telpon_petugas"/>
                             </div>
                             @error('telpon_petugas') <small style="color:red">{{ $message }}</small> @enderror
                           </div>

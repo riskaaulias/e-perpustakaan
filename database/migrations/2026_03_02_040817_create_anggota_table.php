@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('nama_anggota');
             $table->text('alamat');
-            $table->integer('telpon');
+            $table->string('telpon');
             $table->integer('NIM');
             $table->string('maks_pinjam');
             $table->string('status');

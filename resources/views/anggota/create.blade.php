@@ -35,103 +35,82 @@
 
           <div class="content-wrapper">
             <div class="container-xxl flex-grow-1 container-p-y">
-              <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Tambah/</span>Buku</h4>
+              <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Tambah/</span>Anggota</h4>
 
               <div class="row">
                 <div class="col-xxl">
                   <div class="card mb-4">
                     <div class="card-header d-flex align-items-center justify-content-between">
-                      <h5 class="mb-0">Tambah Data Buku</h5>
+                      <h5 class="mb-0">Tambah Data Anggota</h5>
                     </div>
                     <div class="card-body">
-                      <form action="{{route ('buku.store')}}" method="POST" enctype="multipart/form-data">
+                      <form action="{{route ('anggota.store')}}" method="POST" enctype="multipart/form-data">
                         @csrf
                         
                         <div class="row mb-3">
-                          <label class="col-sm-2 col-form-label">Kode Buku</label>
-                          <div class="col-sm-10">
-                            <div class="input-group input-group-merge">
-                              <span class="input-group-text"><i class="bx bx-barcode"></i></span>
-                              <input type="text" class="form-control" placeholder="Kode Buku" name="kode_buku"/>
-                            </div>
-                            @error('kode_buku') <small style="color:red">{{ $message }}</small> @enderror
-                          </div>
-                        </div>
-
-                        <div class="row mb-3">
-                          <label class="col-sm-2 col-form-label">Judul Buku</label>
-                          <div class="col-sm-10">
-                            <div class="input-group input-group-merge">
-                              <span class="input-group-text"><i class="bx bx-book"></i></span>
-                              <input type="text" class="form-control" placeholder="Judul Buku" name="judul_buku"/>
-                            </div>
-                            @error('judul_buku') <small style="color:red">{{ $message }}</small> @enderror
-                          </div>
-                        </div>
-
-                        <div class="row mb-3">
-                          <label class="col-sm-2 col-form-label">Pengarang</label>
+                          <label class="col-sm-2 col-form-label">Nama Anggota</label>
                           <div class="col-sm-10">
                             <div class="input-group input-group-merge">
                               <span class="input-group-text"><i class="bx bx-user"></i></span>
-                              <input type="text" class="form-control" placeholder="Pengarang" name="pengarang"/>
+                              <input type="text" class="form-control" placeholder="Nama Anggota" name="nama_anggota"/>
                             </div>
-                            @error('pengarang') <small style="color:red">{{ $message }}</small> @enderror
+                            @error('nama_anggota') <small style="color:red">{{ $message }}</small> @enderror
+                          </div>
+                        </div>
+
+                    <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label">Alamat</label>
+                        <div class="col-sm-10">
+                            <div class="input-group input-group-merge">
+                        <textarea class="form-control" name="alamat" placeholder="Alamat" cols="100" rows="5"></textarea>
+                        </div>
+                         @error('alamat')
+                        <small style="color:red;">{{ $message }}</small><br>
+                         @enderror
+                    </div>
+                    </div>
+
+                        <div class="row mb-3">
+                          <label class="col-sm-2 col-form-label">Telpon</label>
+                          <div class="col-sm-10">
+                            <div class="input-group input-group-merge">
+                              <span class="input-group-text"><i class="bx bx-phone-call"></i></span>
+                              <input type="text" class="form-control" placeholder="Telpon" name="telpon"/>
+                            </div>
+                            @error('telpon') <small style="color:red">{{ $message }}</small> @enderror
                           </div>
                         </div>
 
                         <div class="row mb-3">
-                          <label class="col-sm-2 col-form-label">Penerbit</label>
+                          <label class="col-sm-2 col-form-label">NIM</label>
                           <div class="col-sm-10">
                             <div class="input-group input-group-merge">
                               <span class="input-group-text"><i class="bx bx-building"></i></span>
-                              <input type="text" class="form-control" placeholder="Penerbit" name="penerbit"/>
+                              <input type="text" class="form-control" placeholder="NIM" name="NIM"/>
                             </div>
-                            @error('penerbit') <small style="color:red">{{ $message }}</small> @enderror
+                            @error('NIM') <small style="color:red">{{ $message }}</small> @enderror
                           </div>
                         </div>
 
                         <div class="row mb-3">
-                          <label class="col-sm-2 col-form-label">Tahun</label>
+                          <label class="col-sm-2 col-form-label">Maksimal Pinjam</label>
                           <div class="col-sm-10">
                             <div class="input-group input-group-merge">
                               <span class="input-group-text"><i class="bx bx-calendar"></i></span>
-                              <input type="text" class="form-control" placeholder="Tahun" name="tahun"/>
+                              <input type="text" class="form-control" placeholder="Maksimal Pinjam" name="maks_pinjam"/>
                             </div>
-                            @error('tahun') <small style="color:red">{{ $message }}</small> @enderror
+                            @error('maks_pinjam') <small style="color:red">{{ $message }}</small> @enderror
                           </div>
                         </div>
 
                         <div class="row mb-3">
-                          <label class="col-sm-2 col-form-label">Stok</label>
+                          <label class="col-sm-2 col-form-label">Status</label>
                           <div class="col-sm-10">
                             <div class="input-group input-group-merge">
-                              <span class="input-group-text"><i class="bx bx-package"></i></span>
-                              <input type="text" class="form-control" placeholder="Stok" name="stok"/>
+                              <span class="input-group-text"><i class="bx bx-info-circle"></i></span>
+                              <input type="text" class="form-control" placeholder="Status" name="status"/>
                             </div>
-                            @error('stok') <small style="color:red">{{ $message }}</small> @enderror
-                          </div>
-                        </div>
-
-                        <div class="row mb-3">
-                          <label class="col-sm-2 col-form-label">Kategori</label>
-                          <div class="col-sm-10">
-                            <div class="input-group input-group-merge">
-                              <span class="input-group-text"><i class="bx bx-category"></i></span>
-                              <input type="text" class="form-control" placeholder="Kategori" name="kategori"/>
-                            </div>
-                            @error('kategori') <small style="color:red">{{ $message }}</small> @enderror
-                          </div>
-                        </div>
-
-                        <div class="row mb-3">
-                          <label class="col-sm-2 col-form-label">Lokasi Rak</label>
-                          <div class="col-sm-10">
-                            <div class="input-group input-group-merge">
-                              <span class="input-group-text"><i class="bx bx-buildings"></i></span>
-                              <input type="text" class="form-control" placeholder="Lokasi Rak" name="lokasi_rak"/>
-                            </div>
-                            @error('lokasi_rak') <small style="color:red">{{ $message }}</small> @enderror
+                            @error('status') <small style="color:red">{{ $message }}</small> @enderror
                           </div>
                         </div>
 

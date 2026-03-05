@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Anggota;
 use Illuminate\Http\Request;
 
 class AnggotaController extends Controller
@@ -11,7 +12,8 @@ class AnggotaController extends Controller
      */
     public function index()
     {
-        //
+        $anggota = Anggota::all();
+        return view('anggota.index', compact('anggota')); 
     }
 
     /**
@@ -19,7 +21,7 @@ class AnggotaController extends Controller
      */
     public function create()
     {
-        //
+        return view('anggota.create');
     }
 
     /**
@@ -27,7 +29,36 @@ class AnggotaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nama_anggota' => 'required|string|max:255',
+            'alamat' => 'required|string|max:255',
+            'telpon' => 'required|string|max:255',
+            'NIM' => 'required|string|max:255',
+            'maks_pinjam' => 'required|string|max:255',
+            'status' => 'required|string|max:255',
+        ], [
+            'nama_anggota.required' => 'Nama tidak boleh kosong!',
+            'alamat.required' => 'Alamat tidak boleh kosong!',
+            'telpon.required' => 'Telpon tidak boleh kosong!',
+            'NIM.required' => 'NIM tidak boleh kosong!',
+            'maks_pinjam.required' => 'Maksimal Pinjam tidak boleh kosong!',
+            'status.required' => 'Status tidak boleh kosong!',
+        ]);
+
+        $anggota = new Anggota;
+        $anggota->nama_anggota       =$request->input('nama_anggota');
+        $anggota->alamat             =$request->input('alamat');
+        $anggota->telpon             =$request->input('telpon');
+        $anggota->NIM             =$request->input('NIM');
+        $anggota->maks_pinjam             =$request->input('maks_pinjam');
+        $anggota->status             =$request->input('status');
+        $anggota->save();
+
+        session()->flash('success', 'Data Berhasil Ditambahkan');
+        return redirect()->route('anggota.index')->with([
+        'message' => 'Data Berhasil Ditambahkan',
+        'type' => 'success'
+    ]);
     }
 
     /**
@@ -35,7 +66,8 @@ class AnggotaController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $anggota = Anggota::findOrFail($id);
+        return view('anggota.show', compact('anggota'));
     }
 
     /**
@@ -43,7 +75,8 @@ class AnggotaController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $anggota = Anggota::findOrFail($id);
+        return view('anggota.edit', compact('anggota'));
     }
 
     /**
@@ -51,7 +84,37 @@ class AnggotaController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+         $request->validate([
+            'nama_anggota' => 'required|string|max:255',
+            'alamat' => 'required|string|max:255',
+            'telpon' => 'required|string|max:255',
+            'NIM' => 'required|string|max:255',
+            'maks_pinjam' => 'required|string|max:255',
+            'status' => 'required|string|max:255',
+        ], [
+            'nama_anggota.required' => 'Nama tidak boleh kosong!',
+            'alamat.required' => 'Alamat tidak boleh kosong!',
+            'telpon.required' => 'Telpon tidak boleh kosong!',
+            'NIM.required' => 'NIM tidak boleh kosong!',
+            'maks_pinjam.required' => 'Maksimal Pinjam tidak boleh kosong!',
+            'status.required' => 'Status tidak boleh kosong!',
+        ]);
+
+        $anggota = Anggota::findOrFail($id);
+        $anggota->nama_anggota       =$request->input('nama_anggota');
+        $anggota->alamat             =$request->input('alamat');
+        $anggota->telpon             =$request->input('telpon');
+        $anggota->NIM             =$request->input('NIM');
+        $anggota->maks_pinjam             =$request->input('maks_pinjam');
+        $anggota->status             =$request->input('status');
+        $anggota->save();
+
+        session()->flash('success', 'Data Berhasil Dirubah');
+        return redirect()->route('anggota.index')->with([
+        'message' => 'Data Berhasil Dirubah',
+        'type' => 'warning'
+    ]);
+
     }
 
     /**
@@ -59,6 +122,11 @@ class AnggotaController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $anggota = Anggota::findOrFail($id);
+        $anggota->delete();
+        return redirect()->route('anggota.index')->with([
+        'message' => 'Data Berhasil Dihapus',
+        'type' => 'danger'
+        ]);
     }
 }
