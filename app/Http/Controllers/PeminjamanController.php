@@ -56,7 +56,7 @@ class PeminjamanController extends Controller
         session()->flash('success', 'Data Berhasil Ditambahkan');
         return redirect()->route('peminjaman.index')->with([
         'message' => 'Data Berhasil Ditambahkan',
-        'type' => 'succes'
+        'type' => 'success'
         ]);
     }
 

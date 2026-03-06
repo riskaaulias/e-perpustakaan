@@ -34,14 +34,12 @@ class AnggotaController extends Controller
             'alamat' => 'required|string|max:255',
             'telpon' => 'required|string|max:255',
             'NIM' => 'required|string|max:255',
-            'maks_pinjam' => 'required|string|max:255',
             'status' => 'required|string|max:255',
         ], [
             'nama_anggota.required' => 'Nama tidak boleh kosong!',
             'alamat.required' => 'Alamat tidak boleh kosong!',
             'telpon.required' => 'Telpon tidak boleh kosong!',
             'NIM.required' => 'NIM tidak boleh kosong!',
-            'maks_pinjam.required' => 'Maksimal Pinjam tidak boleh kosong!',
             'status.required' => 'Status tidak boleh kosong!',
         ]);
 
@@ -50,7 +48,6 @@ class AnggotaController extends Controller
         $anggota->alamat             =$request->input('alamat');
         $anggota->telpon             =$request->input('telpon');
         $anggota->NIM             =$request->input('NIM');
-        $anggota->maks_pinjam             =$request->input('maks_pinjam');
         $anggota->status             =$request->input('status');
         $anggota->save();
 
@@ -89,14 +86,12 @@ class AnggotaController extends Controller
             'alamat' => 'required|string|max:255',
             'telpon' => 'required|string|max:255',
             'NIM' => 'required|string|max:255',
-            'maks_pinjam' => 'required|string|max:255',
             'status' => 'required|string|max:255',
         ], [
             'nama_anggota.required' => 'Nama tidak boleh kosong!',
             'alamat.required' => 'Alamat tidak boleh kosong!',
             'telpon.required' => 'Telpon tidak boleh kosong!',
             'NIM.required' => 'NIM tidak boleh kosong!',
-            'maks_pinjam.required' => 'Maksimal Pinjam tidak boleh kosong!',
             'status.required' => 'Status tidak boleh kosong!',
         ]);
 
@@ -105,7 +100,6 @@ class AnggotaController extends Controller
         $anggota->alamat             =$request->input('alamat');
         $anggota->telpon             =$request->input('telpon');
         $anggota->NIM             =$request->input('NIM');
-        $anggota->maks_pinjam             =$request->input('maks_pinjam');
         $anggota->status             =$request->input('status');
         $anggota->save();
 

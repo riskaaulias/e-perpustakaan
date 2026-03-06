@@ -93,17 +93,6 @@
                         </div>
 
                         <div class="row mb-3">
-                          <label class="col-sm-2 col-form-label">Maksimal Pinjam</label>
-                          <div class="col-sm-10">
-                            <div class="input-group input-group-merge">
-                              <span class="input-group-text"><i class="bx bx-calendar"></i></span>
-                              <input type="text" class="form-control" value="{{$anggota->maks_pinjam}}" name="maks_pinjam"/>
-                            </div>
-                            @error('maks_pinjam') <small style="color:red">{{ $message }}</small> @enderror
-                          </div>
-                        </div>
-
-                        <div class="row mb-3">
                           <label class="col-sm-2 col-form-label">Status</label>
                           <div class="col-sm-10">
                             <div class="input-group input-group-merge">

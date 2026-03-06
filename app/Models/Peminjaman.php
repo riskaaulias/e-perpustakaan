@@ -22,4 +22,14 @@ class Peminjaman extends Model
     {
         return $this->belongsTo(Petugas::class, 'id_petugas');
     }
+
+    public function detail_pinjam()
+    {
+        return $this->hasMany(Detail_Pinjam::class);
+    }
+
+    public function pengembalian()
+    {
+        return $this->hasMany(Pengembalian::class);
+    }
 }

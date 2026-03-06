@@ -17,7 +17,6 @@ return new class extends Migration
             $table->text('alamat');
             $table->string('telpon');
             $table->integer('NIM');
-            $table->string('maks_pinjam');
             $table->string('status');
             $table->timestamps();
         });

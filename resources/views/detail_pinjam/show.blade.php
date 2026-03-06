@@ -83,82 +83,59 @@
           <div class="content-wrapper">
 
             <!-- Content -->
-           <div class="container-xxl flex-grow-1 container-p-y">
-              <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Tabel /</span>Anggota</h4>
-                @if (session('message'))
-                <div class="alert alert-{{ session('type') }} alert-dismissible fade show" role="alert">
-                    @if(session('type') == 'success')
-                        <i class="bx bx-check-circle me-1"></i>
-                    @elseif(session('type') == 'warning')
-                        <i class="bx bx-edit-alt me-1"></i>
-                    @else
-                        <i class="bx bx-trash me-1"></i>
-                    @endif
-                    
-                    {{ session('message') }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            @endif
-                <a href="{{route('anggota.create')}}" class="btn btn-primary mb-4">
-                    <i class="bx bx-folder-plus" style="position: relative; bottom: 2px;"></i>Tambah data
-                </a>
-         <div class="card">
-                <h5 class="card-header">Tabel Anggota</h5>
-                <div class="table-responsive text-nowrap">
-                  <table class="table">
-                    <thead>
-                      <tr class="text-center">
-                        <th>No</th>
-                        <th>Nama Anggota</th>
-                        <th>Alamat</th>
-                        <th>Telpon</th>
-                        <th>NIM</th>
-                        <th>Status</th>
-                        <th>Actions</th>
-                      </tr>
-                    </thead>
-                    <tbody class="table-border-bottom-0">
-                    @php $no = 1; @endphp
-                    @foreach ($anggota as $data)
-                      <tr class="text-center">
-                        <td>{{$no++}}</td>
-                        <td>{{$data->nama_anggota}}</td>
-                        <td>{{$data->alamat}}</td>
-                        <td>{{$data->telpon}}</td>
-                        <td>{{$data->NIM}}</td>
-                        <td>{{$data->status}}</td>
-                         <td>
-                          <div class="d-flex align-items-center justify-content-center gap-1">
-                              <a href="{{ route('anggota.show', $data->id) }}" class="btn btn-sm btn-info">
-                                  <i class="bx bx-show-alt"></i>
-                              </a>
+         
+            <div class="container-xxl flex-grow-1 container-p-y">
+              <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Detail/</span>Pinjam</h4>
 
-                              <a href="{{ route('anggota.edit', $data->id) }}" class="btn btn-sm btn-warning">
-                                  <i class="bx bx-edit-alt"></i>
-                              </a>
-
-                              <form action="{{ route('anggota.destroy', $data->id) }}" method="POST" class="d-inline">
-                                  @csrf
-                                  @method('DELETE')
-                                  <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Yakin mau hapus data ini?')">
-                                      <i class="bx bx-trash"></i>
-                                  </button>
-                              </form>
-                          </div>
-                      </td>
-                            </form>
-
+              <!-- Basic Layout & Basic with Icons -->
+              <div class="row">
+            
+                <!-- Basic with Icons -->
+                <div class="col-xxl">
+                  <div class="card mb-4">
+                    <div class="card-body">
+                      @csrf
+                        <div class="row mb-3">
+                          <label class="col-sm-2 col-form-label" for="basic-icon-default-fullname">Kode Buku</label>
+                          <div class="col-sm-10">
+                            <div class="input-group input-group-merge">
+                              <input type="text" class="form-control" name="id_buku" value="{{$detail_pinjam->buku->kode_buku}}" disabled/>
                             </div>
                           </div>
-                        </td>
-                      </tr>
-                    @endforeach
+                        </div>
+            
+                        <div class="row mb-3">
+                          <label class="col-sm-2 col-form-label" for="basic-icon-default-fullname">Jumlah Buku</label>
+                          <div class="col-sm-10">
+                            <div class="input-group input-group-merge">
+                              <input type="text" class="form-control" name="id_peminjaman" value="{{$detail_pinjam->peminjaman->total_pinjam}}" disabled/>
+                            </div>
+                          </div>
+                        </div>
 
-                    </tbody>
-                  </table>
+                          <div class="row mb-3">
+                          <label class="col-sm-2 col-form-label" for="basic-icon-default-fullname">Maksimal Pinjam</label>
+                          <div class="col-sm-10">
+                            <div class="input-group input-group-merge">
+                              <input type="text" class="form-control"  name="maks_pinjam" value="{{$detail_pinjam->maks_pinjam}}" disabled/>
+                            </div>
+                          </div>
+
+    
+                        </div>
+                        <div class="row justify-content-end">
+                          <div class="col-sm-10">
+                        <a href="{{ route('detail_pinjam.index') }}" class="btn btn-primary">
+                            Kembali
+                        </a>
+                          </div>
+                        </div>
+                      </form>
+                    </div>
+                  </div>
                 </div>
               </div>
-              </div>
+            </div>
             <!-- / Content -->
 
             <!-- Footer -->

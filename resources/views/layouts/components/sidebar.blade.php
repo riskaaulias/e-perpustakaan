@@ -99,5 +99,17 @@
                 <div data-i18n="Tables">Peminjaman</div>
               </a>
             </li>
+            <li class="menu-item">
+              <a href="{{route('detail_pinjam.index')}}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-file"></i>
+                <div data-i18n="Tables">Detail Pinjam</div>
+              </a>
+            </li>
+            <li class="menu-item">
+              <a href="{{route('pengembalian.index')}}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-history"></i>
+                <div data-i18n="Tables">Pengembalian</div>
+              </a>
+            </li>
           </ul>
         </aside>

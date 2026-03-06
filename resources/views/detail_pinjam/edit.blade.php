@@ -35,71 +35,53 @@
 
           <div class="content-wrapper">
             <div class="container-xxl flex-grow-1 container-p-y">
-              <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Tambah/</span>Anggota</h4>
+              <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Tambah/</span>Detail Pinjam</h4>
 
               <div class="row">
                 <div class="col-xxl">
                   <div class="card mb-4">
                     <div class="card-header d-flex align-items-center justify-content-between">
-                      <h5 class="mb-0">Tambah Data Anggota</h5>
+                      <h5 class="mb-0">Tambah Data Detail Pinjam</h5>
                     </div>
                     <div class="card-body">
-                      <form action="{{route ('anggota.store')}}" method="POST" enctype="multipart/form-data">
+                     <form action="{{ route('detail_pinjam.update', $detail_pinjam->id) }}" method="POST" enctype="multipart/form-data">
                         @csrf
-                        
+                        @method('PUT')
                         <div class="row mb-3">
-                          <label class="col-sm-2 col-form-label">Nama Anggota</label>
-                          <div class="col-sm-10">
-                            <div class="input-group input-group-merge">
-                              <span class="input-group-text"><i class="bx bx-user"></i></span>
-                              <input type="text" class="form-control" placeholder="Nama Anggota" name="nama_anggota"/>
-                            </div>
-                            @error('nama_anggota') <small style="color:red">{{ $message }}</small> @enderror
-                          </div>
-                        </div>
-
-                    <div class="row mb-3">
-                        <label class="col-sm-2 col-form-label">Alamat</label>
+                        <label class="col-sm-2 col-form-label">Kode Buku</label>
                         <div class="col-sm-10">
-                            <div class="input-group input-group-merge">
-                        <textarea class="form-control" name="alamat" placeholder="Alamat" cols="100" rows="5"></textarea>
-                        </div>
-                         @error('alamat')
-                        <small style="color:red;">{{ $message }}</small><br>
-                         @enderror
-                    </div>
-                    </div>
-
-                        <div class="row mb-3">
-                          <label class="col-sm-2 col-form-label">Telpon</label>
-                          <div class="col-sm-10">
-                            <div class="input-group input-group-merge">
-                              <span class="input-group-text"><i class="bx bx-phone-call"></i></span>
-                              <input type="text" class="form-control" placeholder="Telpon" name="telpon"/>
-                            </div>
-                            @error('telpon') <small style="color:red">{{ $message }}</small> @enderror
+                          <div class="input-group input-group-merge">
+                            <span class="input-group-text"><i class="bx bx-user-circle"></i></span>
+                            <select class="form-select" name="id_buku">
+                              @foreach($buku as $data)
+                                <option value="{{ $data->id }}" {{$data->id == $detail_pinjam->id_buku ? 'selected' : ''}}>{{ $data->kode_buku}}</option>
+                              @endforeach
+                            </select>
                           </div>
                         </div>
+                      </div>
 
+                      <div class="row mb-3">
+                          <label class="col-sm-2 col-form-label">Jumlah Buku</label>
+                            <div class="col-sm-10">
+                            <div class="input-group input-group-merge">
+                            <span class="input-group-text"><i class="bx bx-user"></i></span>
+                          <select class="form-select" name="id_peminjaman">
+                      @foreach($peminjaman as $data)
+                    <option value="{{ $data->id }}" {{$data->id == $detail_pinjam->id_peminjaman ? 'selected' : ''}}>{{ $data->total_pinjam }}</option>
+                       @endforeach
+                  </select>
+                </div>
+              </div>
+             </div>
                         <div class="row mb-3">
-                          <label class="col-sm-2 col-form-label">NIM</label>
+                          <label class="col-sm-2 col-form-label">Maksimal Pinjam</label>
                           <div class="col-sm-10">
                             <div class="input-group input-group-merge">
-                              <span class="input-group-text"><i class="bx bx-building"></i></span>
-                              <input type="text" class="form-control" placeholder="NIM" name="NIM"/>
+                              <span class="input-group-text"><i class="bx bx-calendar"></i></span>
+                              <input type="date" class="form-control" value="{{$detail_pinjam->maks_pinjam}}" name="maks_pinjam"/>
                             </div>
-                            @error('NIM') <small style="color:red">{{ $message }}</small> @enderror
-                          </div>
-                        </div>
-
-                        <div class="row mb-3">
-                          <label class="col-sm-2 col-form-label">Status</label>
-                          <div class="col-sm-10">
-                            <div class="input-group input-group-merge">
-                              <span class="input-group-text"><i class="bx bx-info-circle"></i></span>
-                              <input type="text" class="form-control" placeholder="Status" name="status"/>
-                            </div>
-                            @error('status') <small style="color:red">{{ $message }}</small> @enderror
+                            @error('maks_pinjam') <small style="color:red">{{ $message }}</small> @enderror
                           </div>
                         </div>
 

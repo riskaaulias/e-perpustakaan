@@ -84,7 +84,7 @@
 
             <!-- Content -->
            <div class="container-xxl flex-grow-1 container-p-y">
-              <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Tabel /</span>Anggota</h4>
+              <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Tabel /</span>Pengembalian</h4>
                 @if (session('message'))
                 <div class="alert alert-{{ session('type') }} alert-dismissible fade show" role="alert">
                     @if(session('type') == 'success')
@@ -99,60 +99,61 @@
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             @endif
-                <a href="{{route('anggota.create')}}" class="btn btn-primary mb-4">
+                <a href="{{route('pengembalian.create')}}" class="btn btn-primary mb-4">
                     <i class="bx bx-folder-plus" style="position: relative; bottom: 2px;"></i>Tambah data
                 </a>
          <div class="card">
-                <h5 class="card-header">Tabel Anggota</h5>
+                <h5 class="card-header">Tabel Pengembalian</h5>
                 <div class="table-responsive text-nowrap">
                   <table class="table">
                     <thead>
                       <tr class="text-center">
                         <th>No</th>
-                        <th>Nama Anggota</th>
-                        <th>Alamat</th>
-                        <th>Telpon</th>
-                        <th>NIM</th>
+                        <th>Nama</th>
+                        <th>Nama Petugas</th>
+                        <th>Tanggal Pinjam</th>
+                        <th>Kode Buku</th>
+                        <th>Tanggal Harus Kembali</th>
+                        <th>Tanggal Kembali</th>
                         <th>Status</th>
+                        <th>Jumlah Kembali</th>
+                        <th>Denda</th>
                         <th>Actions</th>
                       </tr>
                     </thead>
                     <tbody class="table-border-bottom-0">
                     @php $no = 1; @endphp
-                    @foreach ($anggota as $data)
-                      <tr class="text-center">
-                        <td>{{$no++}}</td>
-                        <td>{{$data->nama_anggota}}</td>
-                        <td>{{$data->alamat}}</td>
-                        <td>{{$data->telpon}}</td>
-                        <td>{{$data->NIM}}</td>
-                        <td>{{$data->status}}</td>
-                         <td>
-                          <div class="d-flex align-items-center justify-content-center gap-1">
-                              <a href="{{ route('anggota.show', $data->id) }}" class="btn btn-sm btn-info">
-                                  <i class="bx bx-show-alt"></i>
-                              </a>
-
-                              <a href="{{ route('anggota.edit', $data->id) }}" class="btn btn-sm btn-warning">
-                                  <i class="bx bx-edit-alt"></i>
-                              </a>
-
-                              <form action="{{ route('anggota.destroy', $data->id) }}" method="POST" class="d-inline">
-                                  @csrf
-                                  @method('DELETE')
-                                  <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Yakin mau hapus data ini?')">
-                                      <i class="bx bx-trash"></i>
-                                  </button>
-                              </form>
-                          </div>
-                      </td>
+                   @foreach ($pengembalian as $data)
+                    <tr class="text-center">
+                      <td>{{ $no++ }}</td>
+                      <td>{{ $data->anggota?->nama_anggota}}</td>
+                      <td>{{ $data->petugas?->nama_petugas}}</td>
+                      <td>{{ $data->peminjaman?->tgl_pinjam}}</td>
+                      <td>{{ $data->buku?->kode_buku}}</td>
+                      <td>{{ $data->tgl_harus_kembali }}</td>
+                      <td>{{ $data->tgl_kembali }}</td>
+                      <td>{{ $data->status }}</td>
+                      <td>{{ $data->jumlah_kembali_buku }}</td>
+                      <td>{{ $data->denda }}</td>
+                      <td>
+                        <div class="d-flex justify-content-center align-items-center gap-1">
+                            <a href="{{ route('pengembalian.show', $data->id) }}" class="btn btn-sm btn-info">
+                                <i class="bx bx-show-alt"></i>
+                            </a>
+                            <a href="{{ route('pengembalian.edit', $data->id) }}" class="btn btn-sm btn-warning">
+                                <i class="bx bx-edit-alt"></i>
+                            </a>
+                            <form action="{{ route('pengembalian.destroy', $data->id) }}" method="POST" class="d-inline">
+                                @csrf
+                                @method('DELETE')
+                                <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Yakin mau hapus data ini?')">
+                                    <i class="bx bx-trash"></i>
+                                </button>
                             </form>
-
-                            </div>
-                          </div>
-                        </td>
-                      </tr>
-                    @endforeach
+                        </div>
+                      </td>
+                    </tr>
+                  @endforeach
 
                     </tbody>
                   </table>

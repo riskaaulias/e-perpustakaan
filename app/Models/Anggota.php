@@ -10,11 +10,16 @@ class Anggota extends Model
     use HasFactory;
 
     protected $table = 'anggota';
-    protected $fillable = ['id', 'nama_anggota', 'alamat', 'telpon', 'NIM', 'maks_pinjam', 'status'];
+    protected $fillable = ['id', 'nama_anggota', 'alamat', 'telpon', 'NIM', 'status'];
     public $timestamp   = true;
 
     public function anggota()
     {
         return $this->hasMany(Anggota::class);
+    }
+
+    public function pengembalian()
+    {
+        return $this->hasMany(Pengembalian::class);
     }
 }

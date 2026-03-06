@@ -128,14 +128,6 @@
                           </div>
                         </div>
                         <div class="row mb-3">
-                          <label class="col-sm-2 col-form-label" for="basic-icon-default-fullname">Maksimal Pinjam</label>
-                          <div class="col-sm-10">
-                            <div class="input-group input-group-merge">
-                              <input type="text" class="form-control"  name="maks_pinjam" value="{{$anggota->maks_pinjam}}" disabled/>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="row mb-3">
                           <label class="col-sm-2 col-form-label" for="basic-icon-default-fullname">Status</label>
                           <div class="col-sm-10">
                             <div class="input-group input-group-merge">
