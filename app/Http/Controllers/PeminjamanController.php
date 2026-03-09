@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Petugas;
 use App\Models\Anggota;
 use App\Models\Peminjaman;
+use App\Models\Buku;
 use Illuminate\Http\Request;
 
 class PeminjamanController extends Controller
@@ -25,8 +26,9 @@ class PeminjamanController extends Controller
     {
         $petugas = Petugas::all();
         $anggota = Anggota::all();
+        $buku = Buku::where('stok', '>', 0)->get();
         $peminjaman = Peminjaman::all();
-        return view('peminjaman.create', compact('petugas', 'anggota', 'peminjaman'));
+        return view('peminjaman.create', compact('petugas', 'anggota', 'buku' , 'peminjaman'));
     }
 
     /**
@@ -35,6 +37,7 @@ class PeminjamanController extends Controller
     public function store(Request $request)
     {
          $request->validate([
+            'id_buku'      => 'required|exists:buku,id',
             'id_anggota' => 'required|string|max:255',
             'id_petugas' => 'required|string|max:255',
             'tgl_pinjam' => 'required|string|max:255',
@@ -45,12 +48,21 @@ class PeminjamanController extends Controller
             'tgl_pinjam.required' => 'Tanggal Pinjam tidak boleh kosong!',
             'total_pinjam.required' => 'Total Pinjam tidak boleh kosong!',
         ]);
-
+        
+        $buku = Buku::findOrFail($request->id_buku);
+        if ($buku->stok < $request->total_pinjam) {
+        return back()->with([
+            'message' => 'Stok buku tidak mencukupi! Sisa stok: ' . $buku->stok,
+            'type' => 'danger'
+        ]);
+        }
         $peminjaman = new Peminjaman;
         $peminjaman->id_anggota       =$request->input('id_anggota');
         $peminjaman->id_petugas             =$request->input('id_petugas');
         $peminjaman->tgl_pinjam             =$request->input('tgl_pinjam');
         $peminjaman->total_pinjam             =$request->input('total_pinjam');
+        $buku->stok = $buku->stok - $request->total_pinjam;
+        $buku->save();
         $peminjaman->save();
 
         session()->flash('success', 'Data Berhasil Ditambahkan');
@@ -88,6 +100,7 @@ class PeminjamanController extends Controller
         $request->validate([
             'id_anggota' => 'required|string|max:255',
             'id_petugas' => 'required|string|max:255',
+            'id_buku'      => 'required|exists:buku,id',
             'tgl_pinjam' => 'required|string|max:255',
             'total_pinjam' => 'required|string|max:255',
         ], [
@@ -97,12 +110,25 @@ class PeminjamanController extends Controller
             'total_pinjam.required' => 'Total Pinjam tidak boleh kosong!',
         ]);
 
-        $peminjaman = Peminjaman::findOrFail($id);
-        $peminjaman->id_anggota       =$request->input('id_anggota');
-        $peminjaman->id_petugas             =$request->input('id_petugas');
-        $peminjaman->tgl_pinjam             =$request->input('tgl_pinjam');
-        $peminjaman->total_pinjam             =$request->input('total_pinjam');
+        $buku = Buku::findOrFail($request->id_buku);
+        if ($buku->stok < $request->total_pinjam) {
+        return redirect()->back()->with([
+            'message' => 'Stok buku tidak mencukupi! Sisa stok: ' . $buku->stok,
+            'type' => 'danger'
+        ]);
+        
+        }
+        // $peminjaman = Peminjaman::findOrFail($id);
+        // $peminjaman->id_anggota       =$request->input('id_anggota');
+        // $peminjaman->id_petugas             =$request->input('id_petugas');
+        // $peminjaman->id_buku     = $request->id_buku;
+        // $peminjaman->tgl_pinjam             =$request->input('tgl_pinjam');
+        // $peminjaman->total_pinjam             =$request->input('total_pinjam');
+        $buku->stok = $buku->stok - $request->total_pinjam;
+        $buku->save();
         $peminjaman->save();
+
+
 
         session()->flash('success', 'Data Berhasil Dirubah');
         return redirect()->route('peminjaman.index')->with([
@@ -114,7 +140,7 @@ class PeminjamanController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Peminjaman $peminjaman)
     {
         $peminjaman = Peminjaman::findOrFail($id);
         $peminjaman->delete();
@@ -124,3 +150,4 @@ class PeminjamanController extends Controller
         ]);
     }
 }
+

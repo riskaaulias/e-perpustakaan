@@ -62,6 +62,20 @@
                       </div>
 
                       <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label">Nama Buku</label>
+                        <div class="col-sm-10">
+                          <div class="input-group input-group-merge">
+                            <span class="input-group-text"><i class="bx bx-user-circle"></i></span>
+                            <select class="form-select" name="id_buku">
+                              @foreach($buku as $data)
+                                <option value="{{ $data->id }}">{{ $data->judul_buku }}</option>
+                              @endforeach
+                            </select>
+                          </div>
+                        </div>
+                      </div>
+
+                      <div class="row mb-3">
                           <label class="col-sm-2 col-form-label">Nama Petugas</label>
                             <div class="col-sm-10">
                             <div class="input-group input-group-merge">

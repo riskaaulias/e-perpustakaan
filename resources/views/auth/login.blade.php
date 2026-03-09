@@ -197,7 +197,7 @@
             </form>
               <p class="text-center">
                 <span>Baru bergabung di platform kami?</span>
-                <a href="auth-register-basic.html">
+                <a href="#">
                   <span>Buat akun</span>
                 </a>
               </p>
