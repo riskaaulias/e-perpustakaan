@@ -130,7 +130,7 @@
                       <td>{{ $data->petugas?->nama_petugas}}</td>
                       <td>{{ $data->peminjaman?->tgl_pinjam}}</td>
                       <td>{{ $data->buku?->kode_buku}}</td>
-                      <td>{{ $data->tgl_harus_kembali }}</td>
+                      <td>{{ $data->peminjaman->tgl_harus_kembali }}</td>
                       <td>{{ $data->tgl_kembali }}</td>
                       <td>{{ $data->status }}</td>
                       <td>{{ $data->jumlah_kembali_buku }}</td>

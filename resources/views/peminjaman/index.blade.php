@@ -112,6 +112,7 @@
                         <th>Nama</th>
                         <th>Nama Petugas</th>
                         <th>Tanggal Pinjam</th>
+                        <th>Tanggal Harus Kembali</th>
                         <th>Total Pinjam</th>
                         <th>Actions</th>
                       </tr>
@@ -123,6 +124,7 @@
                       <td>{{ $no++ }}</td>
                       <td>{{ $data->anggota?->nama_anggota}}</td>
                       <td>{{ $data->petugas?->nama_petugas}}</td>
+                      <td>{{ $data->tgl_harus_kembali}}</td>
                       <td>{{ $data->tgl_pinjam }}</td>
                       <td>{{ $data->total_pinjam }}</td>
                       <td>

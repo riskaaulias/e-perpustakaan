@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->date('tgl_harus_kembali');
             $table->date('tgl_kembali');
-            $table->string('status');
+            $table->enum('status',['belum dikembalikan','dikembalikan'])->default('belum dikembalikan');
             $table->integer('jumlah_kembali_buku');
             $table->string('denda');
             $table->unsignedBigInteger('id_pinjam');

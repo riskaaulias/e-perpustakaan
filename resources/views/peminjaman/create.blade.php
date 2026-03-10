@@ -100,6 +100,17 @@
                         </div>
 
                         <div class="row mb-3">
+                          <label class="col-sm-2 col-form-label">Tanggal Harus Kembali</label>
+                          <div class="col-sm-10">
+                            <div class="input-group input-group-merge">
+                              <span class="input-group-text"><i class="bx bx-calendar"></i></span>
+                              <input type="date" class="form-control" placeholder="Tanggal Harus Kembali" name="tgl_harus_kembali"/>
+                            </div>
+                            @error('tgl_harus_kembali') <small style="color:red">{{ $message }}</small> @enderror
+                          </div>
+                        </div>
+
+                        <div class="row mb-3">
                           <label class="col-sm-2 col-form-label">Total Pinjam</label>
                           <div class="col-sm-10">
                             <div class="input-group input-group-merge">

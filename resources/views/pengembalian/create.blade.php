@@ -80,7 +80,7 @@
                         <div class="col-sm-10">
                           <div class="input-group input-group-merge">
                             <span class="input-group-text"><i class="bx bx-calendar"></i></span>
-                            <select class="form-select" name="id_peminjaman">
+                            <select class="form-select" name="id_pinjam">
                               @foreach($peminjaman as $data)
                                 <option value="{{ $data->id }}">{{ $data->tgl_pinjam }}</option>
                               @endforeach
@@ -103,23 +103,30 @@
                         </div>
                       </div>
 
-                        <div class="row mb-3">
-                          <label class="col-sm-2 col-form-label">Tanggal Harus Kembali</label>
-                          <div class="col-sm-10">
-                            <div class="input-group input-group-merge">
-                              <span class="input-group-text"><i class="bx bx-calendar"></i></span>
-                              <input type="date" class="form-control" placeholder="Tanggal Harus Kembali" name="tgl_harus_kembali"/>
-                            </div>
-                            @error('tgl_harus_kembali') <small style="color:red">{{ $message }}</small> @enderror
-                          </div>
-                        </div>
+                      <div class="row mb-3">
+    <label class="col-sm-2 col-form-label">Tanggal Harus Kembali</label>
+    <div class="col-sm-10">
+        <div class="input-group input-group-merge">
+            <span class="input-group-text"><i class="bx bx-calendar"></i></span>
+            <select class="form-select" name="tgl_harus_kembali">
+                @foreach($peminjaman as $data)
+                    {{-- Pastikan format Y-m-d agar Carbon tidak bingung --}}
+                    <option value="{{ \Carbon\Carbon::parse($data->tgl_harus_kembali)->format('Y-m-d') }}">
+                        {{ $data->tgl_harus_kembali }} (Pinjaman ID: {{ $data->id }})
+                    </option>
+                @endforeach
+            </select>
+        </div>
+    </div>
+</div>
+
 
                         <div class="row mb-3">
                           <label class="col-sm-2 col-form-label">Tanggal Kembali</label>
                           <div class="col-sm-10">
                             <div class="input-group input-group-merge">
                               <span class="input-group-text"><i class="bx bx-calendar"></i></span>
-                              <input type="date" class="form-control" placeholder="Tanggal Kembali" name="tgl_kembali"/>
+                              <input type="date" value="{{ date('Y-m-d') }}"class="form-control" placeholder="Tanggal Kembali" name="tgl_kembali"/>
                             </div>
                             @error('tgl_kembali') <small style="color:red">{{ $message }}</small> @enderror
                           </div>
@@ -130,7 +137,14 @@
                           <div class="col-sm-10">
                             <div class="input-group input-group-merge">
                               <span class="input-group-text"><i class="bx bx-info-circle"></i></span>
-                              <input type="text" class="form-control" placeholder="Status" name="status"/>
+                              <select class="form-select" name="status">
+                                  <option value="belum dikembalikan" {{ (isset($pengembalian) && $pengembalian->status == 'belum dikembalikan') ? 'selected' : '' }}>
+                                      Belum Dikembalikan
+                                  </option>
+                                  <option value="dikembalikan" {{ (isset($pengembalian) && $pengembalian->status == 'dikembalikan') ? 'selected' : '' }}>
+                                      Dikembalikan
+                                  </option>
+                              </select>
                             </div>
                             @error('status') <small style="color:red">{{ $message }}</small> @enderror
                           </div>
@@ -144,17 +158,6 @@
                               <input type="number" class="form-control" placeholder="Jumlah Kembali" name="jumlah_kembali_buku"/>
                             </div>
                             @error('jumlah_kembali_buku') <small style="color:red">{{ $message }}</small> @enderror
-                          </div>
-                        </div>
-
-                        <div class="row mb-3">
-                          <label class="col-sm-2 col-form-label">Denda</label>
-                          <div class="col-sm-10">
-                            <div class="input-group input-group-merge">
-                              <span class="input-group-text"><i class="bx bx-money"></i></span>
-                              <input type="text" class="form-control" placeholder="Denda" name="denda"/>
-                            </div>
-                            @error('denda') <small style="color:red">{{ $message }}</small> @enderror
                           </div>
                         </div>
 

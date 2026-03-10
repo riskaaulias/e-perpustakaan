@@ -41,11 +41,13 @@ class PeminjamanController extends Controller
             'id_anggota' => 'required|string|max:255',
             'id_petugas' => 'required|string|max:255',
             'tgl_pinjam' => 'required|string|max:255',
+            'tgl_harus_kembali' => 'required|string|max:255',
             'total_pinjam' => 'required|string|max:255',
         ], [
             'id_anggota.required' => 'Nama tidak boleh kosong!',
             'id_petugas.required' => 'Nama petugas tidak boleh kosong!',
             'tgl_pinjam.required' => 'Tanggal Pinjam tidak boleh kosong!',
+            'tgl_harus_kembali.required' => 'Tanggal tidak boleh kosong!',
             'total_pinjam.required' => 'Total Pinjam tidak boleh kosong!',
         ]);
         
@@ -60,6 +62,7 @@ class PeminjamanController extends Controller
         $peminjaman->id_anggota       =$request->input('id_anggota');
         $peminjaman->id_petugas             =$request->input('id_petugas');
         $peminjaman->tgl_pinjam             =$request->input('tgl_pinjam');
+        $peminjaman->tgl_harus_kembali             =$request->input('tgl_harus_kembali');
         $peminjaman->total_pinjam             =$request->input('total_pinjam');
         $buku->stok = $buku->stok - $request->total_pinjam;
         $buku->save();
@@ -102,11 +105,13 @@ class PeminjamanController extends Controller
             'id_petugas' => 'required|string|max:255',
             'id_buku'      => 'required|exists:buku,id',
             'tgl_pinjam' => 'required|string|max:255',
+            'tgl_harus_kembali' => 'required|string|max:255',
             'total_pinjam' => 'required|string|max:255',
         ], [
             'id_anggota.required' => 'Nama tidak boleh kosong!',
             'id_petugas.required' => 'Nama petugas tidak boleh kosong!',
             'tgl_pinjam.required' => 'Tanggal Pinjam tidak boleh kosong!',
+            'tgl_harus_kembali.required' => 'Tanggal tidak boleh kosong!',
             'total_pinjam.required' => 'Total Pinjam tidak boleh kosong!',
         ]);
 

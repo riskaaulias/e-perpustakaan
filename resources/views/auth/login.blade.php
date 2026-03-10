@@ -197,7 +197,7 @@
             </form>
               <p class="text-center">
                 <span>Baru bergabung di platform kami?</span>
-                <a href="#">
+                <a href="{{route('register')}}">
                   <span>Buat akun</span>
                 </a>
               </p>

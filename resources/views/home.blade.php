@@ -83,42 +83,135 @@ data-assets-path="{{ asset('assets/') }}/"
           <div class="content-wrapper">
             <!-- Content -->
 
-            <div class="container-xxl flex-grow-1 container-p-y">
-              <div class="row">
-                <div class="col-lg-12 mb-4 order-0">
-                  <div class="card">
-                    <div class="d-flex align-items-end row">
-                      <div class="col-sm-7">
-                        <div class="card-body">
-                          <h5 class="card-title text-primary">Selamat Datang Di Perpustakaan Kami ! 🎉</h5>
-                          <p class="mb-4">
-                            You have done <span class="fw-bold">72%</span> more sales today. Check your new badge in
-                            your profile.
-                          </p>
+          <div class="container-xxl flex-grow-1 container-p-y">
+  <div class="row">
+    <div class="col-lg-8 mb-4 order-0">
+      <div class="card">
+        <div class="d-flex align-items-end row">
+          <div class="col-sm-7">
+            <div class="card-body">
+              <h5 class="card-title text-primary">Selamat Datang Di E-Perpus! 🎉</h5>
+              <p class="mb-4">
+                Sistem sedang berjalan normal. Hari ini ada <span class="fw-bold">5</span> buku yang jatuh tempo pengembalian. Segera cek daftar pinjaman!
+              </p>
+              <a href="{{ route('peminjaman.index') }}" class="btn btn-sm btn-outline-primary">Lihat Aktivitas</a>
+            </div>
+          </div>
+          <div class="col-sm-5 text-center text-sm-left">
+            <div class="card-body pb-0 px-0 px-md-4">
+              <img src="{{ asset('assets/img/illustrations/man-with-laptop-light.png') }}" height="140" alt="View Badge User" />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
-                          <a href="javascript:;" class="btn btn-sm btn-outline-primary">View Badges</a>
-                        </div>
-                      </div>
-                      <div class="col-sm-5 text-center text-sm-left">
-                        <div class="card-body pb-0 px-0 px-md-4">
-                          <img src="{{ asset('assets/img/illustrations/man-with-laptop-light.png') }}"
-                            height="140"
-                            alt="View Badge User"
-                            data-app-dark-img="illustrations/man-with-laptop-dark.png"
-                            data-app-light-img="illustrations/man-with-laptop-light.png"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+    <div class="col-lg-4 col-md-4 order-1">
+      <div class="row">
+        <div class="col-lg-6 col-md-12 col-6 mb-4">
+          <div class="card">
+            <div class="card-body">
+              <div class="card-title d-flex align-items-start justify-content-between">
+                <div class="avatar flex-shrink-0">
+                  <span class="badge bg-label-success p-2"><i class="bx bx-book"></i></span>
                 </div>
               </div>
+              <span class="fw-semibold d-block mb-1">Total Buku</span>
+              <h3 class="card-title mb-2">150</h3>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6 col-md-12 col-6 mb-4">
+          <div class="card">
+            <div class="card-body">
+              <div class="card-title d-flex align-items-start justify-content-between">
+                <div class="avatar flex-shrink-0">
+                  <span class="badge bg-label-info p-2"><i class="bx bx-user"></i></span>
+                </div>
+              </div>
+              <span class="fw-semibold d-block mb-1">Anggota</span>
+              <h3 class="card-title mb-2">48</h3>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-12 col-lg-8 order-2 mb-4">
+      <div class="card h-100">
+        <div class="card-header d-flex align-items-center justify-content-between">
+          <h5 class="card-title m-0 me-2">Peminjaman Terbaru</h5>
+        </div>
+        <div class="table-responsive text-nowrap">
+          <table class="table table-borderless">
+            <thead>
+              <tr>
+                <th>Nama Anggota</th>
+                <th>Judul Buku</th>
+                <th>Status</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>Agus Setiawan</td>
+                <td><span class="badge bg-label-secondary">Algoritma C++</span></td>
+                <td><span class="badge bg-label-primary">Dipinjam</span></td>
+              </tr>
+              <tr>
+                <td>Siti Zubaidah</td>
+                <td><span class="badge bg-label-secondary">Harry Potter</span></td>
+                <td><span class="badge bg-label-success">Kembali</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="col-md-6 col-lg-4 order-3 mb-4">
+      <div class="card h-100">
+        <div class="card-header d-flex align-items-center justify-content-between">
+          <h5 class="card-title m-0 me-2">Aksi Cepat</h5>
+        </div>
+        <div class="card-body">
+          <ul class="p-0 m-0">
+            <li class="d-flex mb-4 pb-1">
+              <div class="avatar flex-shrink-0 me-3">
+                <span class="avatar-initial rounded bg-label-primary"><i class="bx bx-plus"></i></span>
+              </div>
+              <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                <div class="me-2">
+                  <h6 class="mb-0">Peminjaman</h6>
+                  <small class="text-muted">Input transaksi baru</small>
+                </div>
+                <div class="user-progress">
+                   <a href="{{ route('peminjaman.create') }}" class="btn btn-xs btn-primary">Buka</a>
+                </div>
+              </div>
+            </li>
+            <li class="d-flex">
+              <div class="avatar flex-shrink-0 me-3">
+                <span class="avatar-initial rounded bg-label-info"><i class="bx bx-redo"></i></span>
+              </div>
+              <div class="d-flex w-100 flex-wrap align-items-center justify-content-between gap-2">
+                <div class="me-2">
+                  <h6 class="mb-0">Pengembalian</h6>
+                  <small class="text-muted">Proses buku kembali</small>
+                </div>
+                <div class="user-progress">
+                   <a href="{{ route('pengembalian.create') }}" class="btn btn-xs btn-info">Buka</a>
+                </div>
+              </div>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+              
             <!-- / Content -->
 
             <!-- Footer -->

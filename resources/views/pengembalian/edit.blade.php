@@ -101,7 +101,7 @@
                           <div class="col-sm-10">
                             <div class="input-group input-group-merge">
                               <span class="input-group-text"><i class="bx bx-collection"></i></span>
-                              <input type="number" class="form-control" value="{{$pengembalian->tgl_harus_kembali}}" name="tgl_harus_kembali"/>
+                              <input type="date" class="form-control" value="{{$pengembalian->tgl_harus_kembali}}" name="tgl_harus_kembali"/>
                             </div>
                             @error('tgl_harus_kembali') <small style="color:red">{{ $message }}</small> @enderror
                           </div>
