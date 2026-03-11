@@ -66,11 +66,12 @@
                         <div class="col-sm-10">
                           <div class="input-group input-group-merge">
                             <span class="input-group-text"><i class="bx bx-user-circle"></i></span>
-                            <select class="form-select" name="id_buku">
-                              @foreach($buku as $data)
+                            <select class="form-select" name="id_buku" required>
+                            <option value="">-- Pilih Buku --</option>
+                            @foreach($buku as $data)
                                 <option value="{{ $data->id }}">{{ $data->judul_buku }}</option>
-                              @endforeach
-                            </select>
+                            @endforeach
+                        </select>
                           </div>
                         </div>
                       </div>

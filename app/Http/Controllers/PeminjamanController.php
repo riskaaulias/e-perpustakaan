@@ -59,6 +59,7 @@ class PeminjamanController extends Controller
         ]);
         }
         $peminjaman = new Peminjaman;
+        $peminjaman->id_buku           = $request->input('id_buku');
         $peminjaman->id_anggota       =$request->input('id_anggota');
         $peminjaman->id_petugas             =$request->input('id_petugas');
         $peminjaman->tgl_pinjam             =$request->input('tgl_pinjam');
@@ -123,12 +124,13 @@ class PeminjamanController extends Controller
         ]);
         
         }
-        // $peminjaman = Peminjaman::findOrFail($id);
-        // $peminjaman->id_anggota       =$request->input('id_anggota');
-        // $peminjaman->id_petugas             =$request->input('id_petugas');
-        // $peminjaman->id_buku     = $request->id_buku;
-        // $peminjaman->tgl_pinjam             =$request->input('tgl_pinjam');
-        // $peminjaman->total_pinjam             =$request->input('total_pinjam');
+        $peminjaman = Peminjaman::findOrFail($id);
+        $peminjaman->id_buku           = $request->input('id_buku'); 
+        $peminjaman->id_anggota       =$request->input('id_anggota');
+        $peminjaman->id_petugas             =$request->input('id_petugas');
+        $peminjaman->id_buku     = $request->id_buku;
+        $peminjaman->tgl_pinjam             =$request->input('tgl_pinjam');
+        $peminjaman->total_pinjam             =$request->input('total_pinjam');
         $buku->stok = $buku->stok - $request->total_pinjam;
         $buku->save();
         $peminjaman->save();
@@ -147,11 +149,11 @@ class PeminjamanController extends Controller
      */
     public function destroy(Peminjaman $peminjaman)
     {
-        $peminjaman = Peminjaman::findOrFail($id);
         $peminjaman->delete();
+
         return redirect()->route('peminjaman.index')->with([
-        'message' => 'Data Berhasil Dihapus',
-        'type' => 'danger'
+            'message' => 'Data Berhasil Dihapus',
+            'type' => 'danger'
         ]);
     }
 }

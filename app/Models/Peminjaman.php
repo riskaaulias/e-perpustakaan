@@ -35,6 +35,6 @@ class Peminjaman extends Model
 
     public function pengembalian()
     {
-        return $this->hasMany(Pengembalian::class);
+        return $this->hasMany(Pengembalian::class, 'id_pinjam', 'id');
     }
 }
