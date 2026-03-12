@@ -19,43 +19,48 @@
 
           <div class="menu-inner-shadow"></div>
 
-          <ul class="menu-inner py-1">
-            <!-- Dashboard -->
-            <li class="menu-item active">
-              <a href="{{route('home')}}"  class="menu-link">
-                <i class="menu-icon tf-icons bx bx-home-circle"></i>
-                <div data-i18n="Analytics">Dashboard</div>
+    <ul class="menu-inner py-1">
+    
+          <li class="menu-item {{ Request::is('home*') || Request::is('dashboard*') || Request::is('/') ? 'active' : '' }}">
+              <a href="{{ route('home') }}" class="menu-link">
+                  <i class="menu-icon tf-icons bx bx-home-circle"></i>
+                  <div data-i18n="Analytics">Dashboard</div>
               </a>
-            </li>
-            <li class="menu-item">
-              <a href="{{route('buku.index')}}" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-library"></i>
-                <div data-i18n="Tables">Buku</div>
+          </li>
+
+          <li class="menu-item {{ Request::is('buku*') ? 'active' : '' }}">
+              <a href="{{ route('buku.index') }}" class="menu-link">
+                  <i class="menu-icon tf-icons bx bx-library"></i>
+                  <div data-i18n="Tables">Buku</div>
               </a>
-            </li>
-             <li class="menu-item">
-              <a href="{{route('petugas.index')}}" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-id-card"></i>
-                <div data-i18n="Tables">Petugas</div>
+          </li>
+
+          <li class="menu-item {{ Request::is('petugas*') ? 'active' : '' }}">
+              <a href="{{ route('petugas.index') }}" class="menu-link">
+                  <i class="menu-icon tf-icons bx bx-id-card"></i>
+                  <div data-i18n="Tables">Petugas</div>
               </a>
-            </li>
-             <li class="menu-item">
-              <a href="{{route('anggota.index')}}" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-group"></i>
-                <div data-i18n="Tables">Anggota</div>
+          </li>
+
+          <li class="menu-item {{ Request::is('anggota*') ? 'active' : '' }}">
+              <a href="{{ route('anggota.index') }}" class="menu-link">
+                  <i class="menu-icon tf-icons bx bx-group"></i>
+                  <div data-i18n="Tables">Anggota</div>
               </a>
-            </li>
-             <li class="menu-item">
-              <a href="{{route('peminjaman.index')}}" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-export"></i>
-                <div data-i18n="Tables">Peminjaman</div>
+          </li>
+
+          <li class="menu-item {{ Request::is('peminjaman*') ? 'active' : '' }}">
+              <a href="{{ route('peminjaman.index') }}" class="menu-link">
+                  <i class="menu-icon tf-icons bx bx-export"></i>
+                  <div data-i18n="Tables">Peminjaman</div>
               </a>
-            </li>
-            <li class="menu-item">
-              <a href="{{route('pengembalian.index')}}" class="menu-link">
+          </li>
+
+        <li class="menu-item {{ Request::is('pengembalian*') ? 'active' : '' }}">
+            <a href="{{ route('pengembalian.index') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-history"></i>
                 <div data-i18n="Tables">Pengembalian</div>
-              </a>
-            </li>
-          </ul>
+            </a>
+        </li>
+</ul>
         </aside>

@@ -6,7 +6,9 @@ use App\Http\Controllers\PeminjamanController;
 use App\Http\Controllers\AnggotaController;
 use App\Http\Controllers\PengembalianController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Auth;
 
 Route::get('/', function () {
     return view('welcome');
@@ -14,20 +16,21 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', function() {
+    if (auth()->check()) {
+        return auth()->user()->role == 'admin' ? redirect()->route('admin.home') : redirect()->route('user.home');
+    }
+    return redirect()->route('login');
+})->middleware('auth')->name('home');
 
-Route::resource('buku', BukuController::class);
+Route::middleware(['auth'])->group(function () {
+    
+    Route::get('/admin/dashboard', [HomeController::class, 'index'])->name('admin.home');
+    Route::get('/dashboard', [UserController::class, 'index'])->name('user.home');
 
-Route::resource('petugas', PetugasController::class);
-
-Route::resource('anggota', AnggotaController::class);
-
-Route::resource('peminjaman', PeminjamanController::class);
-
-Route::resource('pengembalian', PengembalianController::class);
-
-Route::get('/admin/dashboard', function () {
-    return view('admin.dashboard');
-})->middleware('auth');
-
-Route::get('/user/dashboard', [UserController::class, 'index'])->middleware('auth');
+    Route::resource('buku', BukuController::class);
+    Route::resource('petugas', PetugasController::class);
+    Route::resource('anggota', AnggotaController::class);
+    Route::resource('peminjaman', PeminjamanController::class);
+    Route::resource('pengembalian', PengembalianController::class);
+});

@@ -7,11 +7,15 @@ use Illuminate\Http\Request;
 
 class LoginController extends Controller
 {
-    protected function authenticated(Request $request, $user)
-{
-    if ($user->role == 'admin') {
-        return redirect('/admin/dashboard');
-    } 
-    return redirect('/user/dashboard');
-}
+
+    public function authenticated(Request $request, $user)
+    {
+        if ($user->role == 'admin') {
+            return redirect('/admin/dashboard');
+        }
+
+        return redirect('/dashboard');
+    }
+    
+    public const HOME = '/home';
 }
