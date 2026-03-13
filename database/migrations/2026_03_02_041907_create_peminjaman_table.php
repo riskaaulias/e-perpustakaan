@@ -22,6 +22,9 @@ return new class extends Migration
             $table->foreign('id_anggota')->references('id')->on('anggota')->onDelete('cascade');
             $table->unsignedBigInteger('id_petugas');
             $table->foreign('id_petugas')->references('id')->on('petugas')->onDelete('cascade');
+
+            $table->enum('status', ['pending', 'disetujui', 'ditolak'])->default('pending');
+            
             $table->timestamps();
         });
     }

@@ -156,5 +156,23 @@ class PeminjamanController extends Controller
             'type' => 'danger'
         ]);
     }
-}
+
+        public function setujui($id)
+    {
+        $pinjam = \App\Models\Peminjaman::findOrFail($id);
+        $buku = \App\Models\Buku::find($pinjam->id_buku);
+
+        if ($buku->stok < $pinjam->total_pinjam) {
+            return redirect()->back()->with('error', 'Stok buku tidak cukup!');
+        }
+
+        $pinjam->status = 'disetujui';
+        $pinjam->save();
+
+        $buku->stok = $buku->stok - $pinjam->total_pinjam;
+        $buku->save();
+
+        return redirect()->back()->with('message', 'Peminjaman Disetujui!');
+    }
+    }
 

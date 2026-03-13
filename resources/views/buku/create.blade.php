@@ -1,26 +1,23 @@
 <!DOCTYPE html>
-<html
-  lang="en"
-  class="light-style layout-menu-fixed"
-  dir="ltr"
-  data-theme="theme-default"
-  data-assets-path="../assets/"
-  data-template="vertical-menu-template-free"
->
+<html lang="en" class="light-style layout-menu-fixed" dir="ltr" data-theme="theme-default">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
     <title>Tambah Data Buku</title>
-    <link rel="icon" type="image/x-icon" href="../assets/img/favicon/favicon.ico" />
+    
+    <link rel="icon" type="image/x-icon" href="{{asset('assets/img/favicon/favicon.ico')}}" />
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
     <link rel="stylesheet" href="{{asset('assets/vendor/fonts/boxicons.css')}}" />
+
     <link rel="stylesheet" href="{{asset('assets/vendor/css/core.css')}}" class="template-customizer-core-css" />
     <link rel="stylesheet" href="{{asset('assets/vendor/css/theme-default.css')}}" class="template-customizer-theme-css" />
     <link rel="stylesheet" href="{{asset('assets/css/demo.css')}}" />
+
     <link rel="stylesheet" href="{{asset('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css')}}" />
-    <link rel="stylesheet" href="{{asset('assets/vendor/libs/apex-charts/apex-charts.css')}}" />
     <script src="{{asset('assets/vendor/js/helpers.js')}}"></script>
     <script src="{{asset('assets/js/config.js')}}"></script>
   </head>
@@ -42,9 +39,10 @@
                   <div class="card mb-4">
                     <div class="card-header d-flex align-items-center justify-content-between">
                       <h5 class="mb-0">Tambah Data Buku</h5>
+                      <small class="text-muted float-end">Pastikan semua data terisi</small>
                     </div>
                     <div class="card-body">
-                      <form action="{{route ('buku.store')}}" method="POST" enctype="multipart/form-data">
+                      <form action="{{route('buku.store')}}" method="POST" enctype="multipart/form-data">
                         @csrf
                         
                         <div class="row mb-3">
@@ -52,9 +50,9 @@
                           <div class="col-sm-10">
                             <div class="input-group input-group-merge">
                               <span class="input-group-text"><i class="bx bx-barcode"></i></span>
-                              <input type="text" class="form-control" placeholder="Kode Buku" name="kode_buku"/>
+                              <input type="text" class="form-control" placeholder="BK-001" name="kode_buku" value="{{ old('kode_buku') }}"/>
                             </div>
-                            @error('kode_buku') <small style="color:red">{{ $message }}</small> @enderror
+                            @error('kode_buku') <small class="text-danger">{{ $message }}</small> @enderror
                           </div>
                         </div>
 
@@ -63,9 +61,9 @@
                           <div class="col-sm-10">
                             <div class="input-group input-group-merge">
                               <span class="input-group-text"><i class="bx bx-book"></i></span>
-                              <input type="text" class="form-control" placeholder="Judul Buku" name="judul_buku"/>
+                              <input type="text" class="form-control" placeholder="Judul Buku" name="judul_buku" value="{{ old('judul_buku') }}"/>
                             </div>
-                            @error('judul_buku') <small style="color:red">{{ $message }}</small> @enderror
+                            @error('judul_buku') <small class="text-danger">{{ $message }}</small> @enderror
                           </div>
                         </div>
 
@@ -74,9 +72,9 @@
                           <div class="col-sm-10">
                             <div class="input-group input-group-merge">
                               <span class="input-group-text"><i class="bx bx-user"></i></span>
-                              <input type="text" class="form-control" placeholder="Pengarang" name="pengarang"/>
+                              <input type="text" class="form-control" placeholder="Nama Pengarang" name="pengarang" value="{{ old('pengarang') }}"/>
                             </div>
-                            @error('pengarang') <small style="color:red">{{ $message }}</small> @enderror
+                            @error('pengarang') <small class="text-danger">{{ $message }}</small> @enderror
                           </div>
                         </div>
 
@@ -85,20 +83,20 @@
                           <div class="col-sm-10">
                             <div class="input-group input-group-merge">
                               <span class="input-group-text"><i class="bx bx-building"></i></span>
-                              <input type="text" class="form-control" placeholder="Penerbit" name="penerbit"/>
+                              <input type="text" class="form-control" placeholder="Nama Penerbit" name="penerbit" value="{{ old('penerbit') }}"/>
                             </div>
-                            @error('penerbit') <small style="color:red">{{ $message }}</small> @enderror
+                            @error('penerbit') <small class="text-danger">{{ $message }}</small> @enderror
                           </div>
                         </div>
 
                         <div class="row mb-3">
-                          <label class="col-sm-2 col-form-label">Tahun</label>
+                          <label class="col-sm-2 col-form-label">Tahun Terbit</label>
                           <div class="col-sm-10">
                             <div class="input-group input-group-merge">
                               <span class="input-group-text"><i class="bx bx-calendar"></i></span>
-                              <input type="text" class="form-control" placeholder="Tahun" name="tahun"/>
+                              <input type="number" class="form-control" placeholder="Contoh: 2024" name="tahun" value="{{ old('tahun') }}"/>
                             </div>
-                            @error('tahun') <small style="color:red">{{ $message }}</small> @enderror
+                            @error('tahun') <small class="text-danger">{{ $message }}</small> @enderror
                           </div>
                         </div>
 
@@ -107,9 +105,9 @@
                           <div class="col-sm-10">
                             <div class="input-group input-group-merge">
                               <span class="input-group-text"><i class="bx bx-package"></i></span>
-                              <input type="text" class="form-control" placeholder="Stok" name="stok"/>
+                              <input type="number" class="form-control" placeholder="0" name="stok" value="{{ old('stok') }}"/>
                             </div>
-                            @error('stok') <small style="color:red">{{ $message }}</small> @enderror
+                            @error('stok') <small class="text-danger">{{ $message }}</small> @enderror
                           </div>
                         </div>
 
@@ -118,9 +116,9 @@
                           <div class="col-sm-10">
                             <div class="input-group input-group-merge">
                               <span class="input-group-text"><i class="bx bx-category"></i></span>
-                              <input type="text" class="form-control" placeholder="Kategori" name="kategori"/>
+                              <input type="text" class="form-control" placeholder="Contoh: Fiksi, Edukasi" name="kategori" value="{{ old('kategori') }}"/>
                             </div>
-                            @error('kategori') <small style="color:red">{{ $message }}</small> @enderror
+                            @error('kategori') <small class="text-danger">{{ $message }}</small> @enderror
                           </div>
                         </div>
 
@@ -129,15 +127,28 @@
                           <div class="col-sm-10">
                             <div class="input-group input-group-merge">
                               <span class="input-group-text"><i class="bx bx-buildings"></i></span>
-                              <input type="text" class="form-control" placeholder="Lokasi Rak" name="lokasi_rak"/>
+                              <input type="text" class="form-control" placeholder="Contoh: Rak A1" name="lokasi_rak" value="{{ old('lokasi_rak') }}"/>
                             </div>
-                            @error('lokasi_rak') <small style="color:red">{{ $message }}</small> @enderror
+                            @error('lokasi_rak') <small class="text-danger">{{ $message }}</small> @enderror
+                          </div>
+                        </div>
+
+                        <div class="row mb-4">
+                          <label class="col-sm-2 col-form-label">Cover Buku</label>
+                          <div class="col-sm-10">
+                            <div class="input-group input-group-merge">
+                              <span class="input-group-text"><i class="bx bx-image-add"></i></span>
+                              <input type="file" class="form-control" name="image" accept="image/*" />
+                            </div>
+                            <small class="text-muted">Format: JPG, PNG, JPEG. Maksimal 2MB.</small>
+                            @error('image') <br><small class="text-danger">{{ $message }}</small> @enderror
                           </div>
                         </div>
 
                         <div class="row justify-content-end">
                           <div class="col-sm-10">
-                            <button type="submit" class="btn btn-primary">Simpan</button>
+                            <a href="{{ route('buku.index') }}" class="btn btn-outline-secondary me-2">Batal</a>
+                            <button type="submit" class="btn btn-primary">Simpan Buku</button>
                           </div>
                         </div>
                       </form>
@@ -150,7 +161,7 @@
             <footer class="content-footer footer bg-footer-theme">
               <div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
                 <div class="mb-2 mb-md-0">
-                  © <script>document.write(new Date().getFullYear());</script>, made with ❤️ by ThemeSelection
+                  © <script>document.write(new Date().getFullYear());</script>, E-Perpustakaan
                 </div>
               </div>
             </footer>
@@ -167,6 +178,5 @@
     <script src="{{asset('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js')}}"></script>
     <script src="{{asset('assets/vendor/js/menu.js')}}"></script>
     <script src="{{asset('assets/js/main.js')}}"></script>
-    <script async defer src="https://buttons.github.io/buttons.js"></script>
   </body>
 </html>

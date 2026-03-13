@@ -48,7 +48,3 @@ class User extends Authenticatable
     }
     
 }
-
-$user = \App\Models\User::where('email', 'user@gmail.com')->first();
-$user->password = \Illuminate\Support\Facades\Hash::make('12345678');
-$user->save();

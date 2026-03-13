@@ -1,17 +1,10 @@
 <!DOCTYPE html>
-<html
-  lang="en"
-  class="light-style layout-menu-fixed"
-  dir="ltr"
-  data-theme="theme-default"
-  data-assets-path="../assets/"
-  data-template="vertical-menu-template-free"
->
+<html lang="en" class="light-style layout-menu-fixed" dir="ltr" data-theme="theme-default">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
     <title>Edit Data Buku</title>
-    <link rel="icon" type="image/x-icon" href="../assets/img/favicon/favicon.ico" />
+    <link rel="icon" type="image/x-icon" href="{{asset('assets/img/favicon/favicon.ico')}}" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
@@ -20,7 +13,6 @@
     <link rel="stylesheet" href="{{asset('assets/vendor/css/theme-default.css')}}" class="template-customizer-theme-css" />
     <link rel="stylesheet" href="{{asset('assets/css/demo.css')}}" />
     <link rel="stylesheet" href="{{asset('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css')}}" />
-    <link rel="stylesheet" href="{{asset('assets/vendor/libs/apex-charts/apex-charts.css')}}" />
     <script src="{{asset('assets/vendor/js/helpers.js')}}"></script>
     <script src="{{asset('assets/js/config.js')}}"></script>
   </head>
@@ -44,9 +36,10 @@
                       <h5 class="mb-0">Edit Data Buku</h5>
                     </div>
                     <div class="card-body">
-                      <form action="{{route ('buku.update', $buku->id)}}" method="POST" enctype="multipart/form-data">
+                      <form action="{{route('buku.update', $buku->id)}}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('PUT')
+                        
                         <div class="row mb-3">
                           <label class="col-sm-2 col-form-label">Kode Buku</label>
                           <div class="col-sm-10">
@@ -54,7 +47,7 @@
                               <span class="input-group-text"><i class="bx bx-barcode"></i></span>
                               <input type="text" class="form-control" value="{{$buku->kode_buku}}" name="kode_buku"/>
                             </div>
-                            @error('kode_buku') <small style="color:red">{{ $message }}</small> @enderror
+                            @error('kode_buku') <small class="text-danger">{{ $message }}</small> @enderror
                           </div>
                         </div>
 
@@ -65,7 +58,7 @@
                               <span class="input-group-text"><i class="bx bx-book"></i></span>
                               <input type="text" class="form-control" value="{{$buku->judul_buku}}" name="judul_buku"/>
                             </div>
-                            @error('judul_buku') <small style="color:red">{{ $message }}</small> @enderror
+                            @error('judul_buku') <small class="text-danger">{{ $message }}</small> @enderror
                           </div>
                         </div>
 
@@ -76,7 +69,7 @@
                               <span class="input-group-text"><i class="bx bx-user"></i></span>
                               <input type="text" class="form-control" value="{{$buku->pengarang}}" name="pengarang"/>
                             </div>
-                            @error('pengarang') <small style="color:red">{{ $message }}</small> @enderror
+                            @error('pengarang') <small class="text-danger">{{ $message }}</small> @enderror
                           </div>
                         </div>
 
@@ -87,7 +80,7 @@
                               <span class="input-group-text"><i class="bx bx-building"></i></span>
                               <input type="text" class="form-control" value="{{$buku->penerbit}}" name="penerbit"/>
                             </div>
-                            @error('penerbit') <small style="color:red">{{ $message }}</small> @enderror
+                            @error('penerbit') <small class="text-danger">{{ $message }}</small> @enderror
                           </div>
                         </div>
 
@@ -98,7 +91,7 @@
                               <span class="input-group-text"><i class="bx bx-calendar"></i></span>
                               <input type="text" class="form-control" value="{{$buku->tahun}}" name="tahun"/>
                             </div>
-                            @error('tahun') <small style="color:red">{{ $message }}</small> @enderror
+                            @error('tahun') <small class="text-danger">{{ $message }}</small> @enderror
                           </div>
                         </div>
 
@@ -109,7 +102,7 @@
                               <span class="input-group-text"><i class="bx bx-package"></i></span>
                               <input type="text" class="form-control" value="{{$buku->stok}}" name="stok"/>
                             </div>
-                            @error('stok') <small style="color:red">{{ $message }}</small> @enderror
+                            @error('stok') <small class="text-danger">{{ $message }}</small> @enderror
                           </div>
                         </div>
 
@@ -120,7 +113,7 @@
                               <span class="input-group-text"><i class="bx bx-category"></i></span>
                               <input type="text" class="form-control" value="{{$buku->kategori}}" name="kategori"/>
                             </div>
-                            @error('kategori') <small style="color:red">{{ $message }}</small> @enderror
+                            @error('kategori') <small class="text-danger">{{ $message }}</small> @enderror
                           </div>
                         </div>
 
@@ -131,13 +124,32 @@
                               <span class="input-group-text"><i class="bx bx-buildings"></i></span>
                               <input type="text" class="form-control" value="{{$buku->lokasi_rak}}" name="lokasi_rak"/>
                             </div>
-                            @error('lokasi_rak') <small style="color:red">{{ $message }}</small> @enderror
+                            @error('lokasi_rak') <small class="text-danger">{{ $message }}</small> @enderror
+                          </div>
+                        </div>
+
+                        <div class="row mb-3">
+                          <label class="col-sm-2 col-form-label">Sampul Buku</label>
+                          <div class="col-sm-10">
+                            @if($buku->image)
+                              <div class="mb-2">
+                                <img src="{{ asset('storage/'.$buku->image) }}" alt="Cover" width="100" class="rounded shadow-sm">
+                                <p class="small text-muted">Sampul saat ini</p>
+                              </div>
+                            @endif
+                            <div class="input-group input-group-merge">
+                              <span class="input-group-text"><i class="bx bx-image-add"></i></span>
+                              <input type="file" class="form-control" name="image" accept="image/*" />
+                            </div>
+                            <small class="text-muted">Kosongkan jika tidak ingin mengubah gambar.</small>
+                            @error('image') <br><small class="text-danger">{{ $message }}</small> @enderror
                           </div>
                         </div>
 
                         <div class="row justify-content-end">
                           <div class="col-sm-10">
-                            <button type="submit" class="btn btn-primary">Simpan</button>
+                            <a href="{{ route('buku.index') }}" class="btn btn-outline-secondary me-2">Batal</a>
+                            <button type="submit" class="btn btn-primary">Update Data</button>
                           </div>
                         </div>
                       </form>
@@ -150,15 +162,13 @@
             <footer class="content-footer footer bg-footer-theme">
               <div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
                 <div class="mb-2 mb-md-0">
-                  © <script>document.write(new Date().getFullYear());</script>, made with ❤️ by ThemeSelection
+                  © <script>document.write(new Date().getFullYear());</script>, E-Perpustakaan
                 </div>
               </div>
             </footer>
-            <div class="content-backdrop fade"></div>
           </div>
         </div>
       </div>
-      <div class="layout-overlay layout-menu-toggle"></div>
     </div>
 
     <script src="{{asset('assets/vendor/libs/jquery/jquery.js')}}"></script>
@@ -167,6 +177,5 @@
     <script src="{{asset('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js')}}"></script>
     <script src="{{asset('assets/vendor/js/menu.js')}}"></script>
     <script src="{{asset('assets/js/main.js')}}"></script>
-    <script async defer src="https://buttons.github.io/buttons.js"></script>
   </body>
 </html>

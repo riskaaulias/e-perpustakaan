@@ -21,12 +21,12 @@
 
     <ul class="menu-inner py-1">
     
-          <li class="menu-item {{ Request::is('home*') || Request::is('dashboard*') || Request::is('/') ? 'active' : '' }}">
-              <a href="{{ route('home') }}" class="menu-link">
-                  <i class="menu-icon tf-icons bx bx-home-circle"></i>
-                  <div data-i18n="Analytics">Dashboard</div>
-              </a>
-          </li>
+         <li class="menu-item {{ Request::is('home*', 'dashboard*', '/', 'admin/dashboard*') ? 'active' : '' }}">
+            <a href="{{ route('home') }}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-home-circle"></i>
+                <div data-i18n="Analytics">Dashboard</div>
+            </a>
+        </li>
 
           <li class="menu-item {{ Request::is('buku*') ? 'active' : '' }}">
               <a href="{{ route('buku.index') }}" class="menu-link">
