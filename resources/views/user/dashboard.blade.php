@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dashboard Anggota - E-Perpus</title>
+    <title>Dashboard Anggota - E-Perpustakaan</title>
     <link rel="stylesheet" href="{{asset('assets/vendor/css/core.css')}}" />
     <link rel="stylesheet" href="{{asset('assets/vendor/css/theme-default.css')}}" />
     <link rel="stylesheet" href="{{asset('assets/vendor/fonts/boxicons.css')}}" />
