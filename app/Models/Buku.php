@@ -10,8 +10,8 @@ class Buku extends Model
     use HasFactory;
 
     protected $table = 'buku';
-    protected $fillable = ['id', 'kode_buku', 'judul_buku', 'pengarang', 'penerbit', 'tahun', 'stok', 'kategori', 'lokasi_rak', 'image'];
-    public $timestamp   = true;
+    protected $fillable = ['id', 'kode_buku', 'judul_buku', 'pengarang', 'penerbit', 'tahun', 'stok', 'kategori', 'lokasi_rak', 'image', 'deskripsi'];
+    public $timestamps   = true;
 
     public function detail_pinjam()
     {

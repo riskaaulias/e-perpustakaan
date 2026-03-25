@@ -145,6 +145,21 @@
                           </div>
                         </div>
 
+                        <div class="row mb-3">
+                          <label class="col-sm-2 col-form-label">Deskripsi</label>
+                          <div class="col-sm-10">
+                              <div class="input-group input-group-merge">
+                                  <span class="input-group-text"><i class="bx bx-detail"></i></span>
+                                  <textarea 
+                                      class="form-control" 
+                                      placeholder="Masukkan sinopsis buku di sini..." 
+                                      name="deskripsi" 
+                                      rows="4">{{ old('deskripsi') }}</textarea>
+                              </div>
+                              @error('deskripsi') <small class="text-danger">{{ $message }}</small> @enderror
+                          </div>
+                      </div>
+
                         <div class="row justify-content-end">
                           <div class="col-sm-10">
                             <a href="{{ route('buku.index') }}" class="btn btn-outline-secondary me-2">Batal</a>

@@ -109,13 +109,13 @@
                         <div class="row mb-3">
                           <label class="col-sm-2 col-form-label">Kategori</label>
                           <div class="col-sm-10">
-                            <div class="input-group input-group-merge">
-                              <span class="input-group-text"><i class="bx bx-category"></i></span>
-                              <input type="text" class="form-control" value="{{$buku->kategori}}" name="kategori"/>
-                            </div>
-                            @error('kategori') <small class="text-danger">{{ $message }}</small> @enderror
+                              <div class="input-group input-group-merge">
+                                  <span class="input-group-text"><i class="bx bx-category"></i></span>
+                                  <input type="text" class="form-control" name="kategori" value="{{ $buku->kategori }}" required />
+                              </div>
+                              @error('kategori') <small class="text-danger">{{ $message }}</small> @enderror
                           </div>
-                        </div>
+                      </div>
 
                         <div class="row mb-3">
                           <label class="col-sm-2 col-form-label">Lokasi Rak</label>
@@ -146,10 +146,21 @@
                           </div>
                         </div>
 
+                        <div class="row mb-3">
+                          <label class="col-sm-2 col-form-label">Deskripsi</label>
+                          <div class="col-sm-10">
+                              <div class="input-group input-group-merge">
+                                  <span class="input-group-text"><i class="bx bx-detail"></i></span>
+                                  <textarea class="form-control" name="deskripsi" rows="5">{{ $buku->deskripsi }}</textarea>
+                              </div>
+                              @error('deskripsi') <small class="text-danger">{{ $message }}</small> @enderror
+                          </div>
+                      </div>
+
                         <div class="row justify-content-end">
                           <div class="col-sm-10">
                             <a href="{{ route('buku.index') }}" class="btn btn-outline-secondary me-2">Batal</a>
-                            <button type="submit" class="btn btn-primary">Update Data</button>
+                            <button type="submit" class="btn btn-primary">Simpan</button>
                           </div>
                         </div>
                       </form>

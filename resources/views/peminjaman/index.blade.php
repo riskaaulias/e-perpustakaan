@@ -87,9 +87,11 @@
                     <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
             @endif
-                <a href="{{route('peminjaman.create')}}" class="btn btn-primary mb-4">
-                    <i class="bx bx-folder-plus" style="position: relative; bottom: 2px;"></i>Tambah data
-                </a>
+                <div class="text-end">
+                    <a href="{{route('buku.create')}}" class="btn btn-primary mb-4">
+                        <i class="bx bx-folder-plus" style="position: relative; bottom: 2px;"></i> Tambah data
+                    </a>
+                </div>
          <div class="card">
                 <h5 class="card-header">Tabel Peminjaman</h5>
                 <div class="table-responsive text-nowrap">

@@ -119,6 +119,15 @@
                                             </div>
                                         </div>
 
+                                        <div class="row mb-3">
+                                        <label class="col-sm-2 col-form-label">Deskripsi</label>
+                                        <div class="col-sm-10">
+                                            <div class="form-control-plaintext" style="text-align: justify;">
+                                                {{ $buku->deskripsi ?? 'Tidak ada deskripsi.' }}
+                                            </div>
+                                        </div>
+                                    </div>
+
                                         <div class="row justify-content-end">
                                             <div class="col-sm-10">
                                                 <a href="{{ route('buku.index') }}" class="btn btn-outline-secondary">

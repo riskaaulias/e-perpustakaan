@@ -17,32 +17,28 @@
             </a>
           </div>
 
-  <div class="menu-inner-shadow"></div>
+        <div class="menu-inner-shadow"></div>
 
-  <ul class="menu-inner py-1">
-    <li class="menu-item {{ request()->routeIs('user.home') ? 'active' : '' }}">
-      <a href="{{ route('user.home') }}" class="menu-link">
-        <i class="menu-icon tf-icons bx bx-home-circle"></i>
-        <div>Dashboard</div>
-      </a>
-    </li>
+        <ul class="menu-inner py-1">
+          <li class="menu-item {{ request()->is('user/dashboard*') ? 'active' : '' }}">
+              <a href="{{ route('user.dashboard') }}" class="menu-link">
+                  <i class="menu-icon tf-icons bx bx-home-circle"></i>
+                  <div>Dashboard</div>
+              </a>
+          </li>
 
-    <li class="menu-header small text-uppercase">
-      <span class="menu-header-text">Koleksi</span>
-    </li>
-    
-    <li class="menu-item {{ request()->routeIs('buku.*') ? 'active' : '' }}">
-      <a href="{{ route('buku.index') }}" class="menu-link">
-        <i class="menu-icon tf-icons bx bx-book"></i>
-        <div>Katalog Buku</div>
-      </a>
-    </li>
+          <li class="menu-item {{ request()->is('user/katalog*') ? 'active' : '' }}">
+              <a href="{{ route('user.katalog') }}" class="menu-link">
+                  <i class="menu-icon tf-icons bx bx-book-content"></i>
+                  <div>Katalog Buku</div>
+              </a>
+          </li>
 
-    <li class="menu-item">
-      <a href="#" class="menu-link">
-        <i class="menu-icon tf-icons bx bx-history"></i>
-        <div>Riwayat Peminjaman</div>
-      </a>
-    </li>
-  </ul>
+          <li class="menu-item {{ request()->is('user/riwayat*') ? 'active' : '' }}">
+              <a href="" class="menu-link">
+                  <i class="menu-icon tf-icons bx bx-history"></i>
+                  <div>Riwayat Pinjam</div>
+              </a>
+          </li>
+      </ul>
 </aside>
