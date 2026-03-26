@@ -120,17 +120,17 @@
                               <input type="text" class="form-control"  name="tgl_pinjam" value="{{$peminjaman->tgl_pinjam}}" disabled/>
                             </div>
                           </div>
+                          </div>
 
                         <div class="row mb-3">
-                            <label class="col-sm-2 col-form-label">Tanggal Harus Kembali</label>
+                            <label class="col-sm-2 col-form-label" for="basic-icon-default-fullname">Tanggal Harus Kembali</label>
                               <div class="col-sm-10">
                                   <div class="input-group input-group-merge">
-                                    <input type="text" class="form-control" name="tgl_harus_kembali" value="{{$pengembalian->tgl_harus_kembali}}" disabled />
+                                    <input type="text" class="form-control" name="tgl_harus_kembali" value="{{ $pengembalian?->peminjaman?->tgl_harus_kembali ?? $peminjaman->tgl_harus_kembali }}" disabled />
                               </div>
                              </div>
                             </div>
-
-                        </div>
+                          
                          <div class="row mb-3">
                           <label class="col-sm-2 col-form-label" for="basic-icon-default-fullname">Total Pinjam</label>
                           <div class="col-sm-10">
@@ -139,6 +139,7 @@
                             </div>
                           </div>
                         </div>
+                      
 
                         <div class="row justify-content-end">
                           <div class="col-sm-10">

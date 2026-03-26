@@ -82,7 +82,8 @@ class PeminjamanController extends Controller
     public function show(string $id)
     {
         $peminjaman = Peminjaman::findOrFail($id);
-        return view('peminjaman.show', compact('peminjaman'));
+        $pengembalian = null;
+        return view('peminjaman.show', compact('peminjaman', 'pengembalian'));
     }
 
     /**
@@ -159,20 +160,44 @@ class PeminjamanController extends Controller
 
         public function setujui($id)
     {
-        $pinjam = \App\Models\Peminjaman::findOrFail($id);
-        $buku = \App\Models\Buku::find($pinjam->id_buku);
+        $pinjam = Peminjaman::findOrFail($id);
+        $buku = Buku::find($pinjam->id_buku);
 
-        if ($buku->stok < $pinjam->total_pinjam) {
-            return redirect()->back()->with('error', 'Stok buku tidak cukup!');
+        // 1. Cek stok dulu
+        if (!$buku || $buku->stok < $pinjam->total_pinjam) {
+            return redirect()->back()->with([
+                'message' => 'Gagal! Stok buku tidak mencukupi.',
+                'type'    => 'danger'
+            ]);
         }
 
-        $pinjam->status = 'disetujui';
-        $pinjam->save();
+        // 2. Update Status DAN Isi ID Petugas (Biar namanya muncul di tabel)
+        $pinjam->update([
+            'status'     => 'dipinjam', // Pakai 'dipinjam' biar sinkron sama badge hijau tadi
+            'id_petugas' => auth()->id()
+        ]);
 
-        $buku->stok = $buku->stok - $pinjam->total_pinjam;
-        $buku->save();
+        $buku->decrement('stok', $pinjam->total_pinjam);
 
-        return redirect()->back()->with('message', 'Peminjaman Disetujui!');
+        return redirect()->back()->with([
+            'message' => 'Peminjaman berhasil disetujui oleh ' . auth()->user()->name,
+            'type'    => 'success'
+        ]);
+    }
+
+    public function tolak($id)
+    {
+        $pinjam = Peminjaman::findOrFail($id);
+        
+        $pinjam->update([
+            'status'     => 'ditolak',
+            'id_petugas' => auth()->id() 
+        ]);
+
+        return redirect()->back()->with([
+            'message' => 'Peminjaman telah ditolak.',
+            'type'    => 'warning'
+        ]);
     }
     }
 

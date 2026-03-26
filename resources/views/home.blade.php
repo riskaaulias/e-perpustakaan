@@ -33,9 +33,14 @@
                     <div class="d-flex align-items-end row">
                       <div class="col-sm-7">
                         <div class="card-body">
-                          <h5 class="card-title text-primary">Selamat Datang Di E-Perpustakaan! 🎉</h5>
-                          <p class="mb-4">Sistem berjalan normal. Hari ini ada <span class="fw-bold">{{ $jatuhTempoHariIni }}</span> buku jatuh tempo.</p>
-                          <a href="{{ route('peminjaman.index') }}" class="btn btn-sm btn-outline-primary">Lihat Aktivitas</a>
+                            <div class="d-flex flex-column align-items-start">
+                                <h4 class="card-title text-primary mb-2">Selamat Datang Di E-Perpustakaan! 🎉</h4>
+                                <p class="mb-4">Kelola data peminjaman dan buku dengan mudah di sini.</p>
+                                
+                                <a href="{{ route('peminjaman.index') }}" class="btn btn-sm btn-outline-primary">
+                                    Lihat Aktivitas
+                                </a>
+                            </div>
                         </div>
                       </div>
                       <div class="col-sm-5 text-center text-sm-left">

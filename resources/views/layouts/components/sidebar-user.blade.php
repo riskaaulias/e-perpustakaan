@@ -1,7 +1,7 @@
 
         <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
           <div class="app-brand demo">
-           <a href="{{route('home')}}" class="app-brand-link">
+           <a href="{{route('user.dashboard')}}" class="app-brand-link">
           <span class="app-brand-logo demo">
             <img src="{{ asset('assets/img/favicon/4deb6dda65c141e2fa8d2fa0c6bfc75b-removebg-preview.png') }}" 
                 alt="Logo" 
@@ -19,26 +19,26 @@
 
         <div class="menu-inner-shadow"></div>
 
-        <ul class="menu-inner py-1">
-          <li class="menu-item {{ request()->is('user/dashboard*') ? 'active' : '' }}">
-              <a href="{{ route('user.dashboard') }}" class="menu-link">
-                  <i class="menu-icon tf-icons bx bx-home-circle"></i>
-                  <div>Dashboard</div>
-              </a>
-          </li>
+            <ul class="menu-inner py-1">
+        <li class="menu-item {{ request()->is('dashboard*') ? 'active' : '' }}">
+            <a href="{{ route('user.dashboard') }}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-home-circle"></i>
+                <div>Dashboard</div>
+            </a>
+        </li>
 
-          <li class="menu-item {{ request()->is('user/katalog*') ? 'active' : '' }}">
-              <a href="{{ route('user.katalog') }}" class="menu-link">
-                  <i class="menu-icon tf-icons bx bx-book-content"></i>
-                  <div>Katalog Buku</div>
-              </a>
-          </li>
+        <li class="menu-item {{ request()->is('katalog*') ? 'active' : '' }}">
+            <a href="{{ route('user.katalog') }}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-book-content"></i>
+                <div>Katalog Buku</div>
+            </a>
+        </li>
 
-          <li class="menu-item {{ request()->is('user/riwayat*') ? 'active' : '' }}">
-              <a href="" class="menu-link">
-                  <i class="menu-icon tf-icons bx bx-history"></i>
-                  <div>Riwayat Pinjam</div>
-              </a>
-          </li>
-      </ul>
+        <li class="menu-item {{ request()->is('riwayat*') ? 'active' : '' }}">
+            <a href="{{ route('user.riwayat') }}" class="menu-link">
+                <i class="menu-icon tf-icons bx bx-history"></i>
+                <div>Riwayat Pinjam</div>
+            </a>
+        </li>
+    </ul>
 </aside>

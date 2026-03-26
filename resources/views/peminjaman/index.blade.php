@@ -104,7 +104,7 @@
                         <th>Tanggal Pinjam</th>
                         <th>Tanggal Harus Kembali</th>
                         <th>Total Pinjam</th>
-                        <th>Actions</th>
+                        <th>Aksi</th>
                       </tr>
                     </thead>
                     <tbody class="table-border-bottom-0">
@@ -113,8 +113,13 @@
                     <tr class="text-center">
                       <td>{{ $no++ }}</td>
                       <td>{{ $data->anggota?->nama_anggota}}</td>
-                      <td>{{ $data->petugas?->nama_petugas}}</td>
-                      <td>{{ $data->tgl_harus_kembali}}</td>
+                      <td>
+                          @if($data->petugas)
+                              <span class="text-dark">{{ $data->petugas->nama_petugas }}</span>
+                          @else
+                              <span class="badge bg-label-secondary text-capitalize">Belum disetujui</span>
+                          @endif
+                      </td>                      <td>{{ $data->tgl_harus_kembali}}</td>
                       <td>{{ $data->tgl_pinjam }}</td>
                       <td>{{ $data->total_pinjam }}</td>
                       <td>

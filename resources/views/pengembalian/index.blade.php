@@ -120,7 +120,7 @@
                         <th>Status</th>
                         <th>Jumlah Kembali</th>
                         <th>Denda</th>
-                        <th>Actions</th>
+                        <th>Aksi</th>
                       </tr>
                     </thead>
                     <tbody class="table-border-bottom-0">

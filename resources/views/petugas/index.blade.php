@@ -114,7 +114,7 @@
                         <th>Nama Petugas</th>
                         <th>Alamat Petugas</th>
                         <th>Telpon Petugas</th>
-                        <th>Actions</th>
+                        <th>Aksi</th>
                       </tr>
                     </thead>
                     <tbody class="table-border-bottom-0">

@@ -119,7 +119,7 @@
                         <th>Stok</th>
                         <th>Kategori</th>
                         <th>Lokasi Rak</th>
-                        <th>Actions</th>
+                        <th>Aksi</th>
                       </tr>
                     </thead>
                     <tbody class="table-border-bottom-0">

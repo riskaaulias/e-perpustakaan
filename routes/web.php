@@ -25,10 +25,12 @@ Route::get('/home', function() {
     return redirect()->route('login');
 })->middleware('auth')->name('home');
 
-Route::middleware(['auth'])->group(function () {
-    
+    Route::middleware(['auth'])->group(function () {
     Route::get('/admin/dashboard', [HomeController::class, 'index'])->name('admin.home');
     Route::get('/dashboard', [UserController::class, 'index'])->name('user.dashboard');
+
+    Route::post('/peminjaman/{id}/setujui', [PeminjamanController::class, 'setujui'])->name('peminjaman.setujui');
+    Route::post('/peminjaman/{id}/tolak', [PeminjamanController::class, 'tolak'])->name('peminjaman.tolak');
 
     Route::resource('buku', BukuController::class);
     Route::resource('petugas', PetugasController::class);
@@ -38,7 +40,6 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/katalog', [UserController::class, 'katalog'])->name('user.katalog');
     Route::post('/pinjam-buku', [UserController::class, 'pinjamStore'])->name('user.pinjam.store');
-
-    Route::post('/peminjaman/{id}/setujui', [PeminjamanController::class, 'setujui'])->name('peminjaman.setujui');
-    Route::post('/peminjaman/{id}/tolak', [PeminjamanController::class, 'tolak'])->name('peminjaman.tolak');
+    Route::get('/riwayat', [UserController::class, 'riwayat'])->name('user.riwayat');
 });
+

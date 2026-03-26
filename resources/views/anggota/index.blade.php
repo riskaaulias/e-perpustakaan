@@ -116,7 +116,7 @@
                         <th>Telpon</th>
                         <th>NIM</th>
                         <th>Status</th>
-                        <th>Actions</th>
+                        <th>Aksi</th>
                       </tr>
                     </thead>
                     <tbody class="table-border-bottom-0">

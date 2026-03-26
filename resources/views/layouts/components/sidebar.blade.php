@@ -1,7 +1,7 @@
 
         <aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme">
           <div class="app-brand demo">
-           <a href="{{route('home')}}" class="app-brand-link">
+           <a href="{{route('admin.home')}}" class="app-brand-link">
           <span class="app-brand-logo demo">
             <img src="{{ asset('assets/img/favicon/4deb6dda65c141e2fa8d2fa0c6bfc75b-removebg-preview.png') }}" 
                 alt="Logo" 
@@ -22,7 +22,7 @@
     <ul class="menu-inner py-1">
     
          <li class="menu-item {{ Request::is('home*', 'dashboard*', '/', 'admin/dashboard*') ? 'active' : '' }}">
-            <a href="{{ route('home') }}" class="menu-link">
+            <a href="{{ route('admin.home') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-circle"></i>
                 <div data-i18n="Analytics">Dashboard</div>
             </a>
