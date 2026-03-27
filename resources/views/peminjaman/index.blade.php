@@ -73,20 +73,20 @@
             <!-- Content -->
            <div class="container-xxl flex-grow-1 container-p-y">
               <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Tabel /</span>Peminjaman</h4>
-                @if (session('message'))
-                <div class="alert alert-{{ session('type') }} alert-dismissible fade show" role="alert">
-                    @if(session('type') == 'success')
-                        <i class="bx bx-check-circle me-1"></i>
-                    @elseif(session('type') == 'warning')
-                        <i class="bx bx-edit-alt me-1"></i>
-                    @else
-                        <i class="bx bx-trash me-1"></i>
-                    @endif
-                    
-                    {{ session('message') }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            @endif
+               @if (session('message'))
+    <div class="alert alert-{{ session('type') }} alert-dismissible fade show" role="alert">
+        @if(session('type') == 'success')
+            <i class="bx bx-check-circle me-1"></i>
+        @elseif(session('type') == 'warning')
+            <i class="bx bx-edit-alt me-1"></i>
+        @elseif(session('type') == 'danger')
+            <i class="bx bx-x-circle me-1"></i>
+        @endif
+        
+        {{ session('message') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+    </div>
+@endif
                 <div class="text-end">
                     <a href="{{route('buku.create')}}" class="btn btn-primary mb-4">
                         <i class="bx bx-folder-plus" style="position: relative; bottom: 2px;"></i> Tambah data
@@ -108,40 +108,63 @@
                       </tr>
                     </thead>
                     <tbody class="table-border-bottom-0">
-                    @php $no = 1; @endphp
-                   @foreach ($peminjaman as $data)
-                    <tr class="text-center">
-                      <td>{{ $no++ }}</td>
-                      <td>{{ $data->anggota?->nama_anggota}}</td>
-                      <td>
-                          @if($data->petugas)
-                              <span class="text-dark">{{ $data->petugas->nama_petugas }}</span>
-                          @else
-                              <span class="badge bg-label-secondary text-capitalize">Belum disetujui</span>
-                          @endif
-                      </td>                      <td>{{ $data->tgl_harus_kembali}}</td>
-                      <td>{{ $data->tgl_pinjam }}</td>
-                      <td>{{ $data->total_pinjam }}</td>
-                      <td>
-                        <div class="d-flex justify-content-center align-items-center gap-1">
-                            <a href="{{ route('peminjaman.show', $data->id) }}" class="btn btn-sm btn-info">
-                                <i class="bx bx-show-alt"></i>
-                            </a>
-                            <a href="{{ route('peminjaman.edit', $data->id) }}" class="btn btn-sm btn-warning">
-                                <i class="bx bx-edit-alt"></i>
-                            </a>
-                            <form action="{{ route('peminjaman.destroy', $data->id) }}" method="POST" class="d-inline">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Yakin mau hapus data ini?')">
-                                    <i class="bx bx-trash"></i>
-                                </button>
-                            </form>
-                        </div>
-                      </td>
-                    </tr>
-                  @endforeach
+                        @php $no = 1; @endphp
+                        @foreach ($peminjaman as $data)
+                        <tr class="text-center">
+                            <td>{{ $no++ }}</td>
+                            <td>
+                                <div class="fw-bold">{{ $data->anggota?->nama_anggota }}</div>
+                                <small class="text-muted">{{ $data->buku?->judul_buku }}</small>
+                            </td>
+                            <td>
+                                @if($data->id_petugas)
+                                    <span class="badge {{ $data->status == 'ditolak' ? 'bg-label-danger' : 'bg-label-success' }}">
+                                        <i class="bx {{ $data->status == 'ditolak' ? 'bx-x-circle' : 'bx-check-circle' }} me-1"></i>
+                                        {{ $data->petugas?->nama_petugas }}
+                                    </span>
+                                @else
+                                    <span class="badge bg-label-warning">Menunggu Persetujuan</span>
+                                @endif
+                            </td>
+                            <td>{{ $data->tgl_pinjam }}</td>
+                            <td>{{ $data->tgl_harus_kembali }}</td>
+                            <td>{{ $data->total_pinjam }}</td>
+                            <td>
+                                <div class="d-flex justify-content-center align-items-center gap-1">
+                                    @if(!$data->id_petugas)
+                                        <form action="{{ route('peminjaman.setujui', $data->id) }}" method="POST" class="d-inline">
+                                            @csrf
+                                            <button type="submit" class="btn btn-sm btn-success" title="Setujui">
+                                                <i class="bx bx-check"></i>
+                                            </button>
+                                        </form>
 
+                                        <form action="{{ route('peminjaman.tolak', $data->id) }}" method="POST" class="d-inline">
+                                            @csrf
+                                            <button type="submit" class="btn btn-sm btn-danger" title="Tolak" onclick="return confirm('Tolak peminjaman ini?')">
+                                                <i class="bx bx-x"></i>
+                                            </button>
+                                        </form>
+                                    @endif
+
+                                    <a href="{{ route('peminjaman.show', $data->id) }}" class="btn btn-sm btn-info" title="Detail">
+                                        <i class="bx bx-show-alt"></i>
+                                    </a>
+                                    
+                                    <a href="{{ route('peminjaman.edit', $data->id) }}" class="btn btn-sm btn-warning">
+                                        <i class="bx bx-edit-alt"></i>
+                                    </a>
+                                    <form action="{{ route('peminjaman.destroy', $data->id) }}" method="POST" class="d-inline">
+                                        @csrf
+                                        @method('DELETE')
+                                        <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Yakin mau hapus data ini?')">
+                                            <i class="bx bx-trash"></i>
+                                        </button>
+                                    </form>
+                                </div>
+                            </td>
+                        </tr>
+                        @endforeach
                     </tbody>
                   </table>
                 </div>

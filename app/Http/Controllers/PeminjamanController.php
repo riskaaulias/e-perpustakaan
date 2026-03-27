@@ -36,43 +36,28 @@ class PeminjamanController extends Controller
      */
     public function store(Request $request)
     {
-         $request->validate([
-            'id_buku'      => 'required|exists:buku,id',
-            'id_anggota' => 'required|string|max:255',
-            'id_petugas' => 'required|string|max:255',
-            'tgl_pinjam' => 'required|string|max:255',
-            'tgl_harus_kembali' => 'required|string|max:255',
-            'total_pinjam' => 'required|string|max:255',
-        ], [
-            'id_anggota.required' => 'Nama tidak boleh kosong!',
-            'id_petugas.required' => 'Nama petugas tidak boleh kosong!',
-            'tgl_pinjam.required' => 'Tanggal Pinjam tidak boleh kosong!',
-            'tgl_harus_kembali.required' => 'Tanggal tidak boleh kosong!',
-            'total_pinjam.required' => 'Total Pinjam tidak boleh kosong!',
-        ]);
-        
         $buku = Buku::findOrFail($request->id_buku);
+        
         if ($buku->stok < $request->total_pinjam) {
-        return back()->with([
-            'message' => 'Stok buku tidak mencukupi! Sisa stok: ' . $buku->stok,
-            'type' => 'danger'
-        ]);
+            return back()->with([
+                'message' => 'Stok buku tidak mencukupi!',
+                'type' => 'danger'
+            ]);
         }
+
         $peminjaman = new Peminjaman;
         $peminjaman->id_buku           = $request->input('id_buku');
-        $peminjaman->id_anggota       =$request->input('id_anggota');
-        $peminjaman->id_petugas             =$request->input('id_petugas');
-        $peminjaman->tgl_pinjam             =$request->input('tgl_pinjam');
-        $peminjaman->tgl_harus_kembali             =$request->input('tgl_harus_kembali');
-        $peminjaman->total_pinjam             =$request->input('total_pinjam');
-        $buku->stok = $buku->stok - $request->total_pinjam;
-        $buku->save();
+        $peminjaman->id_anggota        = $request->input('id_anggota');
+        $peminjaman->id_petugas        = $request->input('id_petugas');
+        $peminjaman->tgl_pinjam        = $request->input('tgl_pinjam');
+        $peminjaman->tgl_harus_kembali = $request->input('tgl_harus_kembali');
+        $peminjaman->total_pinjam      = $request->input('total_pinjam');
+        $peminjaman->status            = 'menunggu';
         $peminjaman->save();
 
-        session()->flash('success', 'Data Berhasil Ditambahkan');
         return redirect()->route('peminjaman.index')->with([
-        'message' => 'Data Berhasil Ditambahkan',
-        'type' => 'success'
+            'message' => 'Data Berhasil Ditambahkan, Menunggu Persetujuan!',
+            'type' => 'success'
         ]);
     }
 
@@ -171,16 +156,17 @@ class PeminjamanController extends Controller
             ]);
         }
 
-        // 2. Update Status DAN Isi ID Petugas (Biar namanya muncul di tabel)
+        // 2. Update status jadi 'disetujui' (atau 'dipinjam') dan catat siapa petugasnya
         $pinjam->update([
-            'status'     => 'dipinjam', // Pakai 'dipinjam' biar sinkron sama badge hijau tadi
+            'status'     => 'disetujui', 
             'id_petugas' => auth()->id()
         ]);
 
+        // 3. Kurangi stok buku
         $buku->decrement('stok', $pinjam->total_pinjam);
 
         return redirect()->back()->with([
-            'message' => 'Peminjaman berhasil disetujui oleh ' . auth()->user()->name,
+            'message' => 'Peminjaman berhasil disetujui!',
             'type'    => 'success'
         ]);
     }
@@ -188,16 +174,16 @@ class PeminjamanController extends Controller
     public function tolak($id)
     {
         $pinjam = Peminjaman::findOrFail($id);
-        
+
         $pinjam->update([
             'status'     => 'ditolak',
-            'id_petugas' => auth()->id() 
+            'id_petugas' => auth()->id()
         ]);
 
         return redirect()->back()->with([
-            'message' => 'Peminjaman telah ditolak.',
-            'type'    => 'warning'
+            'message' => 'Permintaan peminjaman telah ditolak!',
+            'type'    => 'danger'
         ]);
     }
-    }
+        }
 

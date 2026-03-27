@@ -12,11 +12,26 @@ class UserController extends Controller
     public function index()
     {
         $userId = Auth::id();
-        $totalPinjam = Peminjaman::where('id_anggota', $userId)->count();
-        $sedangDipinjam = Peminjaman::where('id_anggota', $userId)->where('status', 'disetujui')->count();
-        $sudahKembali = Peminjaman::where('id_anggota', $userId)->where('status', 'dikembalikan')->count();
 
-        return view('user.dashboard', compact('totalPinjam', 'sedangDipinjam', 'sudahKembali'));
+        $peminjaman = Peminjaman::where('id_anggota', $userId)
+                        ->with('buku')
+                        ->latest()
+                        ->get();
+
+        $totalPinjam = $peminjaman->count();
+        $sedangDipinjam = $peminjaman->where('status', 'disetujui')->count();
+        
+        $sudahKembali = $peminjaman->where('status', 'kembali')->count();
+        
+        $ditolak = $peminjaman->where('status', 'ditolak')->count();
+
+        return view('user.dashboard', compact(
+            'peminjaman', 
+            'totalPinjam', 
+            'sedangDipinjam', 
+            'sudahKembali', 
+            'ditolak'
+        ));
     }
 
     public function katalog(Request $request)
@@ -86,7 +101,13 @@ class UserController extends Controller
 
     public function riwayat()
     {
-        $riwayat = Peminjaman::where('id_anggota', Auth::id())->latest()->get();
+        $user = auth()->user();
+
+        $riwayat = \App\Models\Peminjaman::where('id_anggota', $user->id) 
+                    ->with(['buku', 'petugas']) 
+                    ->latest()
+                    ->get();
+
         return view('user.riwayat', compact('riwayat'));
     }
 }

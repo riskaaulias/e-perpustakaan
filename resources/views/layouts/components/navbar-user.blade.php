@@ -32,16 +32,6 @@
                     <small class="text-muted d-block" style="font-size: 10px; margin-top: -5px;">{{ Auth::user()->role }}</small>
                   </li>
 
-                  <li class="nav-item">
-                    <a class="btn btn-sm btn-outline-danger" href="{{ route('logout') }}"
-                      onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                      <i class="bx bx-power-off me-1"></i> Logout
-                    </a>
-                    <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                      @csrf
-                    </form>
-                  </li>
-
                   <li class="nav-item ms-3">
                     <div class="avatar avatar-online">
                       <img src="{{ asset('assets/img/avatars/1.png') }}" alt class="w-px-40 h-auto rounded-circle" />

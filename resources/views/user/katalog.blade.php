@@ -26,7 +26,12 @@
                 <div class="card-body d-flex flex-column">
                     <h5 class="card-title text-primary mb-1">{{ $item->judul_buku }}</h5>
                     <p class="text-muted small mb-3">Penulis: {{ $item->pengarang ?? 'Tidak ada nama' }}</p>
-                    
+                   <div class="mb-3">
+                        <span class="badge bg-label-info text-capitalize">
+                            <i class="bx bx-bookmark me-1"></i> 
+                            {{ $item->kategori }}
+                        </span>
+                    </div>
                     <div class="mt-auto">
                         @if($item->stok > 0)
                             <button type="button" class="btn btn-primary w-100 shadow-none" data-bs-toggle="modal" data-bs-target="#modalPinjam{{ $item->id }}">
@@ -57,6 +62,7 @@
                                 <h4 class="text-primary mb-3">{{ $item->judul_buku }}</h4>
                                 <table class="table table-sm table-borderless">
                                     <tr><td width="30%"><strong>Penulis</strong></td><td>: {{ $item->pengarang ?? '-' }}</td></tr>
+                                    <tr><td><strong>Kategori</strong></td><td>: <span class="text-capitalize">{{ $item->kategori ?? '-' }}</span></td></tr>                                    
                                     <tr><td><strong>Penerbit</strong></td><td>: {{ $item->penerbit ?? '-' }}</td></tr>
                                     <tr><td><strong>Tahun Terbit</strong></td><td>: {{ $item->tahun ?? '-' }}</td></tr>
                                     <tr>

@@ -37,53 +37,54 @@ class PengembalianController extends Controller
     /**
      * Store a newly created resource in storage.
      */
- public function store(Request $request)
-{
-    $request->validate([
-        'id_pinjam' => 'required',
-        'id_anggota' => 'required',
-        'id_petugas' => 'required',
-        'id_buku' => 'required',
-        'tgl_kembali' => 'required|date',
-        'tgl_harus_kembali' => 'required|date',
-        'status' => 'required',
-        'jumlah_kembali_buku' => 'required|numeric',
-    ]);
+    public function store(Request $request)
+    {
+        $request->validate([
+            'id_pinjam' => 'required',
+            'id_anggota' => 'required',
+            'id_petugas' => 'required',
+            'id_buku' => 'required',
+            'tgl_kembali' => 'required|date',
+            'tgl_harus_kembali' => 'required|date',
+            'status' => 'required',
+            'jumlah_kembali_buku' => 'required|numeric',
+        ]);
 
-    $pengembalian = new Pengembalian;
-    $pengembalian->id_pinjam           = $request->id_pinjam;
-    $pengembalian->id_anggota          = $request->id_anggota;
-    $pengembalian->id_petugas          = $request->id_petugas;
-    $pengembalian->id_buku             = $request->id_buku;
-    $pengembalian->tgl_kembali         = $request->tgl_kembali;
-    $pengembalian->tgl_harus_kembali   = $request->tgl_harus_kembali;
-    $pengembalian->status              = $request->status;
-    $pengembalian->jumlah_kembali_buku = $request->jumlah_kembali_buku;
+        $pengembalian = new Pengembalian;
+        $pengembalian->id_pinjam           = $request->id_pinjam;
+        $pengembalian->id_anggota          = $request->id_anggota;
+        $pengembalian->id_petugas          = $request->id_petugas;
+        $pengembalian->id_buku             = $request->id_buku;
+        $pengembalian->tgl_kembali         = $request->tgl_kembali;
+        $pengembalian->tgl_harus_kembali   = $request->tgl_harus_kembali;
+        $pengembalian->status              = $request->status;
+        $pengembalian->jumlah_kembali_buku = $request->jumlah_kembali_buku;
 
-   $tgl_harus_kembali = Carbon::parse($request->tgl_harus_kembali)->startOfDay();
-    $tgl_kembali = Carbon::parse($request->tgl_kembali)->startOfDay();
-
-    $denda = 0;
-
-    if ($tgl_kembali->gt($tgl_harus_kembali)) {
-        $selisih_hari = abs($tgl_kembali->diffInDays($tgl_harus_kembali));
-        $denda = $selisih_hari * 5000;
-    } else {
+        $tgl_harus_kembali = Carbon::parse($request->tgl_harus_kembali)->startOfDay();
+        $tgl_kembali = Carbon::parse($request->tgl_kembali)->startOfDay();
         $denda = 0;
+        if ($tgl_kembali->gt($tgl_harus_kembali)) {
+            $selisih_hari = abs($tgl_kembali->diffInDays($tgl_harus_kembali));
+            $denda = $selisih_hari * 5000;
+        }
+        $pengembalian->denda = $denda;
+
+        if ($request->status == 'dikembalikan') {
+            $buku = Buku::findOrFail($request->id_buku);
+            $buku->stok += $request->jumlah_kembali_buku;
+            $buku->save();
+
+            $peminjaman = Peminjaman::find($request->id_pinjam);
+            if ($peminjaman) {
+                $peminjaman->status = 'kembali';
+                $peminjaman->save();
+            }
+        }
+
+        $pengembalian->save();
+
+        return redirect()->route('pengembalian.index')->with('success', 'Data Berhasil Ditambahkan');
     }
-
-    $pengembalian->denda = $denda;
-
-    if ($request->status == 'dikembalikan') {
-        $buku = Buku::findOrFail($request->id_buku);
-        $buku->stok += $request->jumlah_kembali_buku;
-        $buku->save();
-    }
-
-    $pengembalian->save();
-
-    return redirect()->route('pengembalian.index')->with('success', 'Data Berhasil Ditambahkan');
-}
     /**
      * Display the specified resource.
      */

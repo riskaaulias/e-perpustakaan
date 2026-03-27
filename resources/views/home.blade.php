@@ -4,13 +4,16 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dashboard Admin - E-Perpus</title>
-<link rel="icon" type="image/png" href="{{ asset('assets/img/favicon/4deb6dda65c141e2fa8d2fa0c6bfc75b-removebg-preview.png') }}" />   
- <link rel="stylesheet" href="{{asset('assets/vendor/fonts/boxicons.css')}}" />
+    
+    <link rel="icon" type="image/png" href="{{ asset('assets/img/favicon/4deb6dda65c141e2fa8d2fa0c6bfc75b-removebg-preview.png') }}" />   
+    <link rel="stylesheet" href="{{asset('assets/vendor/fonts/boxicons.css')}}" />
     <link rel="stylesheet" href="{{asset('assets/vendor/css/core.css')}}" />
     <link rel="stylesheet" href="{{asset('assets/vendor/css/theme-default.css')}}" />
     <link rel="stylesheet" href="{{asset('assets/css/demo.css')}}" />
+    
     <script src="{{asset('assets/vendor/js/helpers.js')}}"></script>
     <script src="{{asset('assets/js/config.js')}}"></script>
+    
     <style>
       .chart-container { position: relative; height: 300px; width: 100%; }
     </style>
@@ -36,21 +39,19 @@
                             <div class="d-flex flex-column align-items-start">
                                 <h4 class="card-title text-primary mb-2">Selamat Datang Di E-Perpustakaan! 🎉</h4>
                                 <p class="mb-4">Kelola data peminjaman dan buku dengan mudah di sini.</p>
-                                
-                                <a href="{{ route('peminjaman.index') }}" class="btn btn-sm btn-outline-primary">
-                                    Lihat Aktivitas
-                                </a>
+                                <a href="{{ route('peminjaman.index') }}" class="btn btn-sm btn-outline-primary">Lihat Aktivitas</a>
                             </div>
                         </div>
                       </div>
                       <div class="col-sm-5 text-center text-sm-left">
                         <div class="card-body pb-0 px-0 px-md-4">
-                          <img src="{{ asset('assets/img/illustrations/Gemini_Generated_Image_l6vrnyl6vrnyl6vr-removebg-preview.png') }}" height="140" alt="View Badge User" />
+                          <img src="{{ asset('assets/img/illustrations/Gemini_Generated_Image_l6vrnyl6vrnyl6vr-removebg-preview.png') }}" height="140" alt="Illustration" />
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
+                
                 <div class="col-lg-4 col-md-4">
                   <div class="row">
                     <div class="col-6 mb-4">
@@ -116,28 +117,39 @@
                     <h5 class="card-header">Aktivitas Terbaru</h5>
                     <div class="table-responsive text-nowrap">
                       <table class="table table-hover">
-                        <thead><tr><th>Anggota</th><th>Buku</th><th>Status</th></tr></thead>
+                        <thead>
+                          <tr>
+                            <th>Anggota</th>
+                            <th>Buku</th>
+                            <th>Status</th>
+                          </tr>
+                        </thead>
                         <tbody class="table-border-bottom-0">
                           @forelse($peminjamanTerbaru as $data)
                           <tr>
                             <td><strong>{{ $data->anggota->nama_anggota ?? 'N/A' }}</strong></td>
                             <td>{{ $data->buku->judul_buku ?? 'Buku Tidak Ada' }}</td>
                             <td>
-                              @if($data->pengembalian)
-                                <span class="badge bg-label-success me-1">Kembali</span>
+                              @if($data->status == 'kembali')
+                                <span class="badge bg-label-success me-1">Sudah Kembali</span>
+                              @elseif($data->status == 'disetujui')
+                                <span class="badge bg-label-primary me-1">Sedang Dipinjam</span>
+                              @elseif($data->status == 'ditolak')
+                                <span class="badge bg-label-danger me-1">Ditolak</span>
                               @else
-                                <span class="badge bg-label-primary me-1">Dipinjam</span>
+                                <span class="badge bg-label-warning me-1">Menunggu</span>
                               @endif
                             </td>
                           </tr>
                           @empty
-                          <tr><td colspan="3" class="text-center">Kosong</td></tr>
+                          <tr><td colspan="3" class="text-center py-3">Belum ada aktivitas terbaru</td></tr>
                           @endforelse
                         </tbody>
                       </table>
                     </div>
                   </div>
                 </div>
+
                 <div class="col-md-6 col-lg-4 mb-4">
                   <div class="card h-100">
                     <div class="card-header"><h5>Aksi Cepat</h5></div>

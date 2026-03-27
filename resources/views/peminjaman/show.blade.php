@@ -143,7 +143,7 @@
 
                         <div class="row justify-content-end">
                           <div class="col-sm-10">
-                        <a href="{{ route('buku.index') }}" class="btn btn-primary">
+                        <a href="{{ route('peminjaman.index') }}" class="btn btn-primary">
                             Kembali
                         </a>
                           </div>
