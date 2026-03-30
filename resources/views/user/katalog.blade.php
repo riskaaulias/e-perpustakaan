@@ -18,7 +18,7 @@
             <div class="card h-100 shadow-sm border-0">
                 <div class="p-2" style="cursor: pointer;" data-bs-toggle="modal" data-bs-target="#detailBuku{{ $item->id }}">
                     <img class="card-img-top rounded" 
-                         src="{{ $item->image ? asset('storage/' . $item->image) : asset('assets/img/illustrations/no-book.png') }}" 
+                         src="{{ $item->image_url ?? asset('assets/img/illustrations/no-book.png') }}" 
                          alt="{{ $item->judul_buku }}" 
                          style="height: 280px; object-fit: cover;">
                 </div>
@@ -55,7 +55,7 @@
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-md-5 mb-3 mb-md-0">
-                                <img src="{{ $item->image ? asset('storage/' . $item->image) : asset('assets/img/illustrations/no-book.png') }}" 
+                                <img src="{{ $item->image_url ?? asset('assets/img/illustrations/no-book.png') }}" 
                                      class="img-fluid rounded shadow-sm" alt="Cover">
                             </div>
                             <div class="col-md-7">

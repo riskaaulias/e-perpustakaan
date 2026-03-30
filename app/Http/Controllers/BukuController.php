@@ -3,17 +3,25 @@
 namespace App\Http\Controllers;
 
 use App\Models\Buku;
+use App\Services\BukuService;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Validation\ValidationException;
 
 class BukuController extends Controller
 {
+    public function __construct(
+        protected BukuService $bukuService,
+    ) {}
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $buku = Buku::all();
-        return view('buku.index', compact('buku'));    
+        $buku = $this->bukuService->findAll();
+
+        return view('buku.index', compact('buku'));
     }
 
     /**
@@ -21,7 +29,10 @@ class BukuController extends Controller
      */
     public function create()
     {
-        return view('buku.create');
+        return view('buku.create', [
+            'buku' => new Buku(),
+            'action' => route('buku.store'),
+        ]);
     }
 
     /**
@@ -30,38 +41,18 @@ class BukuController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'kode_buku' => 'required|string|max:255',
-            'judul_buku' => 'required|string|max:255',
-            'pengarang' => 'required|string|max:255',
-            'penerbit' => 'required|string|max:255',
-            'tahun' => 'required|string|max:255',
-            'stok' => 'required|string|max:255',
-            'kategori' => 'required|string|max:255',
-            'lokasi_rak' => 'required|string|max:255',
-            'deskripsi' => 'nullable|string', 
             'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
-        ], [
-            'kode_buku.required' => 'Kode buku tidak boleh kosong!',
-            'judul_buku.required' => 'Judul buku tidak boleh kosong!',
         ]);
 
-        $buku = new Buku;
-        $buku->kode_buku   = $request->input('kode_buku');
-        $buku->judul_buku  = $request->input('judul_buku');
-        $buku->pengarang   = $request->input('pengarang');
-        $buku->penerbit    = $request->input('penerbit');
-        $buku->tahun       = $request->input('tahun');
-        $buku->stok        = $request->input('stok');
-        $buku->kategori    = $request->input('kategori');
-        $buku->lokasi_rak  = $request->input('lokasi_rak');
-        $buku->deskripsi   = $request->input('deskripsi');
-
-        if ($request->hasFile('image')) {
-            $path = $request->file('image')->store('buku', 'public');
-            $buku->image = $path; 
+        try {
+            $buku = new Buku();
+            $buku->fill($request->except('image'));
+            $this->bukuService->createWithImage($buku, $request->file('image'));
+        } catch (ValidationException $e) {
+            return redirect()->back()
+                ->withErrors($e->validator)
+                ->withInput();
         }
-
-        $buku->save();
 
         return redirect()->route('buku.index')->with([
             'message' => 'Data Berhasil Ditambahkan',
@@ -74,8 +65,22 @@ class BukuController extends Controller
      */
     public function show(string $id)
     {
-        $buku = Buku::findOrFail($id);
+        $buku = $this->bukuService->findById($id);
+
+        if (!$buku) {
+            abort(404);
+        }
+
         return view('buku.show', compact('buku'));
+    }
+
+    public function image(Buku $buku)
+    {
+        if (!$buku->image || !Storage::disk('public')->exists($buku->image)) {
+            abort(404);
+        }
+
+        return response()->file(Storage::disk('public')->path($buku->image));
     }
 
     /**
@@ -83,8 +88,16 @@ class BukuController extends Controller
      */
     public function edit(string $id)
     {
-        $buku = Buku::findOrFail($id);
-        return view('buku.edit', compact('buku'));
+        $buku = $this->bukuService->findById($id);
+
+        if (!$buku) {
+            abort(404);
+        }
+
+        return view('buku.update', [
+            'buku' => $buku,
+            'action' => route('buku.update', $buku->id),
+        ]);
     }
 
     /**
@@ -93,43 +106,23 @@ class BukuController extends Controller
     public function update(Request $request, string $id)
     {
         $request->validate([
-            'kode_buku' => 'required|string|max:255',
-            'judul_buku' => 'required|string|max:255',
-            'pengarang' => 'required|string|max:255',
-            'penerbit' => 'required|string|max:255',
-            'tahun' => 'required|string|max:255',
-            'stok' => 'required|string|max:255',
-            'kategori' => 'required|string|max:255',
-            'lokasi_rak' => 'required|string|max:255',
-            'deskripsi' => 'nullable|string', 
-        ], [
-            'kode_buku.required' => 'Kode buku tidak boleh kosong!',
-            'judul_buku.required' => 'Judul buku tidak boleh kosong!',
-            'pengarang.required' => 'Pengarang tidak boleh kosong!',
-            'penerbit.required' => 'Penerbit tidak boleh kosong!',
-            'tahun.required' => 'Tahun tidak boleh kosong!',
-            'stok.required' => 'Stok tidak boleh kosong!',
-            'kategori.required' => 'Kategori tidak boleh kosong!',
-            'lokasi_rak.required' => 'Lokasi Rak tidak boleh kosong!',
+            'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ]);
 
-        $buku = Buku::findOrFail($id);
-        $buku->kode_buku    = $request->input('kode_buku');
-        $buku->judul_buku   = $request->input('judul_buku');
-        $buku->pengarang    = $request->input('pengarang');
-        $buku->penerbit     = $request->input('penerbit');
-        $buku->tahun        = $request->input('tahun');
-        $buku->stok         = $request->input('stok');
-        $buku->kategori     = $request->input('kategori');
-        $buku->lokasi_rak   = $request->input('lokasi_rak');
-        $buku->deskripsi    = $request->input('deskripsi'); 
-        
-        if ($request->hasFile('image')) {
-            $path = $request->file('image')->store('buku', 'public');
-            $buku->image = $path; 
+        $buku = $this->bukuService->findById($id);
+
+        if (!$buku) {
+            abort(404);
         }
 
-        $buku->save();
+        try {
+            $buku->fill($request->except('image'));
+            $this->bukuService->updateWithImage($buku, $request->file('image'));
+        } catch (ValidationException $e) {
+            return redirect()->back()
+                ->withErrors($e->validator)
+                ->withInput();
+        }
 
         return redirect()->route('buku.index')->with([
             'message' => 'Data Berhasil Dirubah',
@@ -142,8 +135,14 @@ class BukuController extends Controller
      */
     public function destroy(string $id)
     {
-        $buku = Buku::findOrFail($id);
-        $buku->delete();
+        $buku = $this->bukuService->findById($id);
+
+        if (!$buku) {
+            abort(404);
+        }
+
+        $this->bukuService->delete($buku);
+
         return redirect()->route('buku.index')->with([
             'message' => 'Data Berhasil Dihapus',
             'type' => 'danger'
