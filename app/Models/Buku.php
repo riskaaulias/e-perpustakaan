@@ -15,7 +15,11 @@ class Buku extends Model
     protected $appends = ['image_url'];
     public $timestamps   = true;
 
+<<<<<<< HEAD
      public function getImageUrlAttribute(): ?string
+=======
+    public function getImageUrlAttribute(): ?string
+>>>>>>> 93ddcaad7d199c78d83d6c6eb9a7a0b47450af81
     {
         if (!$this->image) {
             return null;

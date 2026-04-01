@@ -55,4 +55,8 @@
     <script src="{{ asset('assets/js/main.js') }}"></script>
     @stack('scripts')
 </body>
+<<<<<<< HEAD
 </html>
+=======
+</html>
+>>>>>>> 93ddcaad7d199c78d83d6c6eb9a7a0b47450af81
