@@ -32,6 +32,7 @@ Route::get('/home', function() {
     Route::post('/peminjaman/{id}/setujui', [PeminjamanController::class, 'setujui'])->name('peminjaman.setujui');
     Route::post('/peminjaman/{id}/tolak', [PeminjamanController::class, 'tolak'])->name('peminjaman.tolak');
 
+    Route::get('/buku/{buku}/image', [BukuController::class, 'image'])->name('buku.image');
     Route::resource('buku', BukuController::class);
     Route::resource('petugas', PetugasController::class);
     Route::resource('anggota', AnggotaController::class);
@@ -42,4 +43,3 @@ Route::get('/home', function() {
     Route::post('/pinjam-buku', [UserController::class, 'pinjamStore'])->name('user.pinjam.store');
     Route::get('/riwayat', [UserController::class, 'riwayat'])->name('user.riwayat');
 });
-
