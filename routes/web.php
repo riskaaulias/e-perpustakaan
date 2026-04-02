@@ -42,8 +42,4 @@ Route::get('/home', function() {
     Route::get('/katalog', [UserController::class, 'katalog'])->name('user.katalog');
     Route::post('/pinjam-buku', [UserController::class, 'pinjamStore'])->name('user.pinjam.store');
     Route::get('/riwayat', [UserController::class, 'riwayat'])->name('user.riwayat');
-<<<<<<< HEAD
 });
-=======
-});
->>>>>>> 93ddcaad7d199c78d83d6c6eb9a7a0b47450af81

@@ -191,8 +191,4 @@
       <button type="submit" class="btn btn-primary">{{ $isEdit ? 'Simpan Perubahan' : 'Simpan Buku' }}</button>
     </div>
   </div>
-<<<<<<< HEAD
 </form>
-=======
-</form>
->>>>>>> 93ddcaad7d199c78d83d6c6eb9a7a0b47450af81

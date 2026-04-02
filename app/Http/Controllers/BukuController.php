@@ -9,30 +9,18 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\ValidationException;
 
 class BukuController extends Controller
-<<<<<<< HEAD
-{   
-     public function __construct(
-        protected BukuService $bukuService,
-    ) {}
-=======
 {
     public function __construct(
         protected BukuService $bukuService,
     ) {}
 
->>>>>>> 93ddcaad7d199c78d83d6c6eb9a7a0b47450af81
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
         $buku = $this->bukuService->findAll();
-<<<<<<< HEAD
-        return view('buku.index', compact('buku')); 
-=======
-
         return view('buku.index', compact('buku'));
->>>>>>> 93ddcaad7d199c78d83d6c6eb9a7a0b47450af81
     }
 
     /**
@@ -40,11 +28,7 @@ class BukuController extends Controller
      */
     public function create()
     {
-<<<<<<< HEAD
-         return view('buku.create', [
-=======
         return view('buku.create', [
->>>>>>> 93ddcaad7d199c78d83d6c6eb9a7a0b47450af81
             'buku' => new Buku(),
             'action' => route('buku.store'),
         ]);
@@ -57,11 +41,7 @@ class BukuController extends Controller
     {
         $request->validate([
             'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
-<<<<<<< HEAD
-       ]);
-=======
         ]);
->>>>>>> 93ddcaad7d199c78d83d6c6eb9a7a0b47450af81
 
         try {
             $buku = new Buku();
@@ -88,20 +68,12 @@ class BukuController extends Controller
 
         if (!$buku) {
             abort(404);
-<<<<<<< HEAD
-        }       
-        return view('buku.show', compact('buku'));
-    }
-
-      public function image(Buku $buku)
-=======
         }
 
         return view('buku.show', compact('buku'));
     }
 
     public function image(Buku $buku)
->>>>>>> 93ddcaad7d199c78d83d6c6eb9a7a0b47450af81
     {
         if (!$buku->image || !Storage::disk('public')->exists($buku->image)) {
             abort(404);
@@ -136,21 +108,13 @@ class BukuController extends Controller
             'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ]);
 
-<<<<<<< HEAD
-         $buku = $this->bukuService->findById($id);
-=======
         $buku = $this->bukuService->findById($id);
->>>>>>> 93ddcaad7d199c78d83d6c6eb9a7a0b47450af81
 
         if (!$buku) {
             abort(404);
         }
 
-<<<<<<< HEAD
-         try {
-=======
         try {
->>>>>>> 93ddcaad7d199c78d83d6c6eb9a7a0b47450af81
             $buku->fill($request->except('image'));
             $this->bukuService->updateWithImage($buku, $request->file('image'));
         } catch (ValidationException $e) {
@@ -177,11 +141,7 @@ class BukuController extends Controller
         }
 
         $this->bukuService->delete($buku);
-<<<<<<< HEAD
-        
-=======
 
->>>>>>> 93ddcaad7d199c78d83d6c6eb9a7a0b47450af81
         return redirect()->route('buku.index')->with([
             'message' => 'Data Berhasil Dihapus',
             'type' => 'danger'
