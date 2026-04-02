@@ -216,11 +216,7 @@
       <div class="layout-overlay layout-menu-toggle"></div>
     </div>
     <!-- / Layout wrapper -->
-
-<<<<<<< HEAD
-
-=======
->>>>>>> 93ddcaad7d199c78d83d6c6eb9a7a0b47450af81
+    
     <!-- Core JS -->
     <!-- build:js assets/vendor/js/core.js -->
     <script src="{{asset('assets/vendor/libs/jquery/jquery.js')}}"></script>

@@ -1,234 +1,107 @@
 <!DOCTYPE html>
-
-<!-- =========================================================
-* Sneat - Bootstrap 5 HTML Admin Template - Pro | v1.0.0
-==============================================================
-
-* Product Page: https://themeselection.com/products/sneat-bootstrap-html-admin-template/
-* Created by: ThemeSelection
-* License: You must have a valid license purchased in order to legally use the theme for your project.
-* Copyright ThemeSelection (https://themeselection.com)
-
-=========================================================
- -->
-<!-- beautify ignore:start -->
-<html
-  lang="en"
-  class="light-style layout-menu-fixed"
-  dir="ltr"
-  data-theme="theme-default"
-  data-assets-path="../assets/"
-  data-template="vertical-menu-template-free"
->
-  <head>
+<html lang="en" class="light-style layout-menu-fixed" dir="ltr" data-theme="theme-default" data-assets-path="{{ asset('assets/') }}/" data-template="vertical-menu-template-free">
+<head>
     <meta charset="utf-8" />
-    <meta
-      name="viewport"
-      content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0"
-    />
-
-    <title>Pengembalian | E-perpustakaan</title>
-
-    <meta name="description" content="" />
-
-    <!-- Favicon -->
-<link rel="icon" type="image/png" href="{{ asset('assets/img/favicon/4deb6dda65c141e2fa8d2fa0c6bfc75b-removebg-preview.png') }}" />   
-
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
-      rel="stylesheet"
-    />
-
-    <!-- Icons. Uncomment required icon fonts -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Laporan Pengembalian - Admin</title>
+    <link rel="stylesheet" href="{{asset('assets/vendor/css/core.css')}}" />
+    <link rel="stylesheet" href="{{asset('assets/vendor/css/theme-default.css')}}" />
     <link rel="stylesheet" href="{{asset('assets/vendor/fonts/boxicons.css')}}" />
-
-    <!-- Core '}} -->
-    <link rel="stylesheet" href="{{asset('assets/vendor/css/core.css')}}" class="template-customizer-core-css" />
-    <link rel="stylesheet" href="{{asset('assets/vendor/css/theme-default.css')}}" class="template-customizer-theme-css" />
     <link rel="stylesheet" href="{{asset('assets/css/demo.css')}}" />
-
-    <!-- Vendors CSS -->
-    <link rel="stylesheet" href="{{asset('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css')}}" />
-
-    <link rel="stylesheet" href="{{asset('assets/vendor/libs/apex-charts/apex-charts.css')}}" />
-
-    <!-- Page CSS -->
-
-    <!-- Helpers -->
-    <script src="{{asset('assets/vendor/js/helpers.js')}}"></script>
-
-    <!--! Template customizer & Theme config files MUST be included after core stylesheets and helpers.js in the <head> section -->
-    <!--? Config:  Mandatory theme config file contain global vars & default theme options, Set your preferred theme option in this file.  -->
-    <script src="{{asset('assets/js/config.js')}}"></script>
-  </head>
-
-  <body>
-    <!-- Layout wrapper -->
+</head>
+<body>
     <div class="layout-wrapper layout-content-navbar">
-      <div class="layout-container">
-        <!-- Menu -->
-      @include('layouts.components.sidebar')
-        <!-- / Menu -->
+        <div class="layout-container">
+            {{-- Sidebar Admin --}}
+            @include('layouts.components.sidebar')
 
-        <!-- Layout container -->
-        <div class="layout-page">
-          <!-- Navbar -->
-        @include('layouts.components.navbar')
-          <!-- / Navbar -->
+            <div class="layout-page">
+                {{-- Navbar Admin --}}
+                @include('layouts.components.navbar')
 
-          <!-- Content wrapper -->
-          <div class="content-wrapper">
+                <div class="content-wrapper">
+                    <div class="container-xxl flex-grow-1 container-p-y">
+                        <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Admin /</span> Laporan Pengembalian</h4>
 
-            <!-- Content -->
-           <div class="container-xxl flex-grow-1 container-p-y">
-              <h4 class="fw-bold py-3 mb-4"><span class="text-muted fw-light">Tabel /</span>Pengembalian</h4>
-                @if (session('message'))
-                <div class="alert alert-{{ session('type') }} alert-dismissible fade show" role="alert">
-                    @if(session('type') == 'success')
-                        <i class="bx bx-check-circle me-1"></i>
-                    @elseif(session('type') == 'warning')
-                        <i class="bx bx-edit-alt me-1"></i>
-                    @else
-                        <i class="bx bx-trash me-1"></i>
-                    @endif
-                    
-                    {{ session('message') }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            @endif
-                <div class="text-end">
-                    <a href="{{route('buku.create')}}" class="btn btn-primary mb-4">
-                        <i class="bx bx-folder-plus" style="position: relative; bottom: 2px;"></i> Tambah data
-                    </a>
-                </div>
-         <div class="card">
-                <h5 class="card-header">Tabel Pengembalian</h5>
-                <div class="table-responsive text-nowrap">
-                  <table class="table">
-                    <thead>
-                      <tr class="text-center">
-                        <th>No</th>
-                        <th>Nama</th>
-                        <th>Nama Petugas</th>
-                        <th>Tanggal Pinjam</th>
-                        <th>Kode Buku</th>
-                        <th>Tanggal Harus Kembali</th>
-                        <th>Tanggal Kembali</th>
-                        <th>Status</th>
-                        <th>Jumlah Kembali</th>
-                        <th>Denda</th>
-                        <th>Aksi</th>
-                      </tr>
-                    </thead>
-                    <tbody class="table-border-bottom-0">
-                    @php $no = 1; @endphp
-                   @foreach ($pengembalian as $data)
-                    <tr class="text-center">
-                      <td>{{ $no++ }}</td>
-                      <td>{{ $data->anggota?->nama_anggota}}</td>
-                      <td>{{ $data->petugas?->nama_petugas}}</td>
-                      <td>{{ $data->peminjaman?->tgl_pinjam}}</td>
-                      <td>{{ $data->buku?->kode_buku}}</td>
-                      <td>{{ $data->peminjaman->tgl_harus_kembali }}</td>
-                      <td>{{ $data->tgl_kembali }}</td>
-                      <td>{{ $data->status }}</td>
-                      <td>{{ $data->jumlah_kembali_buku }}</td>
-                      <td>{{ $data->denda }}</td>
-                      <td>
-                        <div class="d-flex justify-content-center align-items-center gap-1">
-                            <a href="{{ route('pengembalian.show', $data->id) }}" class="btn btn-sm btn-info">
-                                <i class="bx bx-show-alt"></i>
-                            </a>
-                            <a href="{{ route('pengembalian.edit', $data->id) }}" class="btn btn-sm btn-warning">
-                                <i class="bx bx-edit-alt"></i>
-                            </a>
-                            <form action="{{ route('pengembalian.destroy', $data->id) }}" method="POST" class="d-inline">
-                                @csrf
-                                @method('DELETE')
-                                <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Yakin mau hapus data ini?')">
-                                    <i class="bx bx-trash"></i>
-                                </button>
-                            </form>
+                        {{-- Alert --}}
+                        @if(session('message'))
+                        <div class="alert alert-{{ session('type') ?? 'success' }} alert-dismissible" role="alert">
+                            {{ session('message') }}
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                         </div>
-                      </td>
-                    </tr>
-                  @endforeach
+                        @endif
 
-                    </tbody>
-                  </table>
+                        <div class="card">
+                            <div class="card-header d-flex justify-content-between align-items-center">
+                                <h5 class="mb-0">Riwayat Buku Masuk & Denda</h5>
+                                <small class="text-muted float-end">Total: {{ $pengembalian->count() }} Data</small>
+                            </div>
+                            <div class="table-responsive text-nowrap">
+                                <table class="table table-hover">
+                                    <thead class="table-light">
+                                        <tr>
+                                            <th>No</th>
+                                            <th>Peminjam</th>
+                                            <th>Buku</th>
+                                            <th>Tgl Kembali</th>
+                                            <th>Denda</th>
+                                            <th>Status</th>
+                                            <th>Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody class="table-border-bottom-0">
+                                        @forelse ($pengembalian as $index => $data)
+                                        <tr>
+                                            <td>{{ $index + 1 }}</td>
+                                            <td>
+                                                <div class="d-flex flex-column">
+                                                    <span class="fw-bold">{{ $data->anggota?->nama_anggota ?? 'Guest' }}</span>
+                                                    <small class="text-muted">ID: {{ $data->id_anggota }}</small>
+                                                </div>
+                                            </td>
+                                            <td>{{ $data->buku?->judul_buku }}</td>
+                                            <td>{{ $data->tgl_kembali }}</td>
+                                            <td>
+                                                @if($data->denda > 0)
+                                                    <span class="text-danger fw-bold">Rp {{ number_format($data->denda) }}</span>
+                                                @else
+                                                    <span class="text-success">Rp 0</span>
+                                                @endif
+                                            </td>
+                                            <td>
+                                                <span class="badge bg-label-primary">Selesai</span>
+                                            </td>
+                                            <td>
+                                                {{-- Tombol Hapus Riwayat jika diperlukan --}}
+                                                <form action="{{ route('pengembalian.destroy', $data->id) }}" method="POST" onsubmit="return confirm('Hapus riwayat ini?')">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-sm btn-icon btn-outline-danger">
+                                                        <i class="bx bx-trash"></i>
+                                                    </button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                        @empty
+                                        <tr>
+                                            <td colspan="7" class="text-center py-4">Belum ada buku yang dikembalikan.</td>
+                                        </tr>
+                                        @endforelse
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+
+                    <footer class="content-footer footer bg-footer-theme text-center py-3">
+                        <div class="container-xxl">© {{ date('Y') }} E-Perpustakaan</div>
+                    </footer>
                 </div>
-              </div>
-              </div>
-            <!-- / Content -->
-
-            <!-- Footer -->
-            <footer class="content-footer footer bg-footer-theme">
-              <div class="container-xxl d-flex flex-wrap justify-content-between py-2 flex-md-row flex-column">
-                <div class="mb-2 mb-md-0">
-                  ©
-                  <script>
-                    document.write(new Date().getFullYear());
-                  </script>
-                  , made with ❤️ by
-                  <a href="https://themeselection.com" target="_blank" class="footer-link fw-bolder">ThemeSelection</a>
-                </div>
-                <div>
-                  <a href="https://themeselection.com/license/" class="footer-link me-4" target="_blank">License</a>
-                  <a href="https://themeselection.com/" target="_blank" class="footer-link me-4">More Themes</a>
-
-                  <a
-                    href="https://themeselection.com/demo/sneat-bootstrap-html-admin-template/documentation/"
-                    target="_blank"
-                    class="footer-link me-4"
-                    >Documentation</a
-                  >
-
-                  <a
-                    href="https://github.com/themeselection/sneat-html-admin-template-free/issues"
-                    target="_blank"
-                    class="footer-link me-4"
-                    >Support</a
-                  >
-                </div>
-              </div>
-            </footer>
-            <!-- / Footer -->
-
-            <div class="content-backdrop fade"></div>
-          </div>
-          <!-- Content wrapper -->
+            </div>
         </div>
-        <!-- / Layout page -->
-      </div>
-
-      <!-- Overlay -->
-      <div class="layout-overlay layout-menu-toggle"></div>
     </div>
-    <!-- / Layout wrapper -->
 
-    <!-- Core JS -->
-    <!-- build:js assets/vendor/js/core.js -->
     <script src="{{asset('assets/vendor/libs/jquery/jquery.js')}}"></script>
-    <script src="{{asset('assets/vendor/libs/popper/popper.js')}}"></script>
     <script src="{{asset('assets/vendor/js/bootstrap.js')}}"></script>
-    <script src="{{asset('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js')}}"></script>
-
-    <script src="{{asset('assets/vendor/js/menu.js')}}"></script>
-    <!-- endbuild -->
-
-    <!-- Vendors JS -->
-    <script src="{{asset('assets/vendor/libs/apex-charts/apexcharts.js')}}"></script>
-
-    <!-- Main JS -->
-    <script src="{{asset('assets/js/main.js')}}"></script>
-
-    <!-- Page JS -->
-    <script src="{{asset('assets/js/dashboards-analytics.js')}}"></script>
-
-    <!-- Place this tag in your head or just before your close body tag. -->
-    <script async defer src="https://buttons.github.io/buttons.js"></script>
-  </body>
+</body>
 </html>
