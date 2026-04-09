@@ -29,6 +29,9 @@ class AnggotaController extends Controller
      */
     public function store(Request $request)
     {
+        $data = $request->all();
+        $data['status'] = 'Aktif';
+
         $request->validate([
             'nama_anggota' => 'required|string|max:255',
             'alamat' => 'required|string|max:255',

@@ -10,6 +10,8 @@ class Anggota extends Model
     use HasFactory;
 
     protected $table = 'anggota';
+    protected $attributes = [
+    'status' => 'Aktif',];
     protected $fillable = ['id', 'nama_anggota', 'alamat', 'telpon', 'NIM', 'status'];
     public $timestamp   = true;
 
