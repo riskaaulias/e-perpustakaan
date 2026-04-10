@@ -40,20 +40,5 @@
                 <div>Riwayat Pinjam</div>
             </a>
         </li>
-
-       <li class="flex-grow-1" style="list-style: none;"></li>
-            <hr class="my-2 mx-3">
-            <li class="menu-item pb-4">
-            <a href="{{ route('logout') }}" 
-                class="menu-link text-danger" 
-                onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                <i class="menu-icon tf-icons bx bx-power-off"></i>
-                <div data-i18n="Logout">Keluar Akun</div>
-            </a>
-            
-            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                @csrf
-            </form>
-        </li>
     </ul>
 </aside>
